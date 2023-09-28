@@ -6,6 +6,7 @@ echo "Data: ";
 // fwrite($file, $data);
 // fclose($file);
 $data = json_encode($_POST);
+echo $data;
 
 $redis = new Redis();
 $redis->connect('redis', 6379);
@@ -14,6 +15,5 @@ if ($redis->ping()) {
    echo "PONGn";
 }
 
-echo $data;
 
 ?>

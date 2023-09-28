@@ -17,6 +17,8 @@ services:
     build: ./
     networks:
       - internal
+    depends_on:
+      - redis
     volumes:
       - ../Pages/:/var/www/html
     restart: unless-stopped
