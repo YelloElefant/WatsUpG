@@ -23,7 +23,7 @@ services:
       - ../Pages/:/var/www/html
     restart: unless-stopped
     environment:
-      - TOKEN = 123456789
+      - TOKEN=123456789
   redisStack:
     container_name: redisStack
     image: redis/redis-stack
