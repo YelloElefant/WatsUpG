@@ -9,17 +9,30 @@ services:
     networks:
       - internal
     volumes:
-      - ../Data/:/var/www/html/
+      - ../Pages/:/var/www/html/
       - /logs/nginx:/var/log/nginx/+
     restart: unless-stopped
   php:
-    image: php:fpm
+    image: php:fpm-alpine
     build: ./
     networks:
       - internal
     volumes:
-      - ../Data/:/var/www/html
+      - ../Pages/:/var/www/html
     restart: unless-stopped
+  redis:
+    container_name: redis
+    image: redis:6.2-alpine
+    restart: unless-stopped
+    ports:
+      - '6379:6379'
+    volumes:
+      - ../ClientData:/data
+      - ../Redis/redis.conf:/usr/local/etc/redis/redis.conf
+    environment:
+      - REDIS_PASSWORD=redis
+      - REDIS_PORT=6379
+      - REDIS_DATABASES=16
 
 networks:
   internal:

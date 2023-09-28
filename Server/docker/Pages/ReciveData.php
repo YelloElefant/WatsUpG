@@ -8,6 +8,11 @@ echo "Data: ";
 $data = json_encode($_POST);
 
 $redis = new Redis();
+$redis->connect('redis', 6379);
+$redis->auth('redis');
+if ($redis->ping()) {
+   echo "PONGn";
+}
 
 echo $data;
 
