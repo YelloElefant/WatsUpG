@@ -34,6 +34,15 @@ services:
       - REDIS_DATABASES=16
     networks:
       - internal
+  RedisInsite:
+    container_name: RedisInsite
+    image: redislabs/redisinsight
+    volumes:
+      - ../RedisInsite:/db
+    ports:
+      - "2526:8001"
+    networks:
+      - internal
 
 networks:
   internal:
