@@ -18,29 +18,19 @@ services:
     networks:
       - internal
     depends_on:
-      - redis
+      - redisStack
     volumes:
       - ../Pages/:/var/www/html
     restart: unless-stopped
-  redis:
-    container_name: redis
-    image: redis:6.2-alpine
+  redisStack:
+    container_name: redisStack
+    image: redis/redis-stack
     restart: unless-stopped
     ports:
       - '6379:6379'
-    volumes:
-      - ../ClientData:/data
-    environment:
-      - REDIS_DATABASES=16
-    networks:
-      - internal
-  RedisInsite:
-    container_name: RedisInsite
-    image: redislabs/redisinsight
-    volumes:
-      - ../RedisInsite:/db
-    ports:
       - "2526:8001"
+    volumes:
+      - ../Redis:/data
     networks:
       - internal
 
