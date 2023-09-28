@@ -23,26 +23,6 @@ services:
       - db
     restart: unless-stopped
 
-  db:
-    container_name: db
-    image: mysql
-    restart: unless-stopped
-    environment:
-      MYSQL_ROOT_PASSWORD: humpfree
-      MYSQL_DATABASE: PHP
-      MYSQL_USER: yelloelefant
-      MYSQL_PASSWORD: elefant
-    networks:
-      - internal
-
-  adminer:
-    image: adminer
-    restart: unless-stopped
-    networks:
-      - internal
-    ports:
-      - 9999:8080
-
 networks:
   internal:
     driver: bridge
