@@ -35,6 +35,8 @@ services:
       - REDIS_PASSWORD=redis
       - REDIS_PORT=6379
       - REDIS_DATABASES=16
+    networks:
+      - internal
 
 networks:
   internal:
