@@ -19,8 +19,6 @@ services:
       - internal
     volumes:
       - ./data/:/var/www/html
-    depends_on:
-      - db
     restart: unless-stopped
 
 networks:
