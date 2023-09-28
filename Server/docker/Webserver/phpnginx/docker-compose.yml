@@ -1,0 +1,48 @@
+version: "3"
+services:
+  nginx:
+    build:
+      context: .
+      dockerfile: nginx/Dockerfile
+    ports:
+      - "2525:80"
+    networks:
+      - internal
+    volumes:
+      - ../Data/:/var/www/html/
+      - /logs/nginx:/var/log/nginx/+
+    restart: unless-stopped
+  php:
+    image: php:fpm-alpine
+    build: ./
+    networks:
+      - internal
+    volumes:
+      - ./data/:/var/www/html
+    depends_on:
+      - db
+    restart: unless-stopped
+
+  db:
+    container_name: db
+    image: mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: humpfree
+      MYSQL_DATABASE: PHP
+      MYSQL_USER: yelloelefant
+      MYSQL_PASSWORD: elefant
+    networks:
+      - internal
+
+  adminer:
+    image: adminer
+    restart: unless-stopped
+    networks:
+      - internal
+    ports:
+      - 9999:8080
+
+networks:
+  internal:
+    driver: bridge
