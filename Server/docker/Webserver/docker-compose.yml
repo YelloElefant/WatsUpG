@@ -13,7 +13,7 @@ services:
       - /logs/nginx:/var/log/nginx/+
     restart: unless-stopped
   php:
-    image: php:fpm-alpine
+    image: php:fpm
     build: ./
     networks:
       - internal

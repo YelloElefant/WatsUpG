@@ -7,7 +7,8 @@ echo "Data: ";
 // fclose($file);
 $data = json_encode($_POST);
 
-echo $data;
+$redis = new Redis();
 
+echo $data;
 
 ?>
