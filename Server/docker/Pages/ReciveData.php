@@ -9,15 +9,21 @@ echo "Data: ";
 // fwrite($file, $data);
 // fclose($file);
 $hostName = $_POST['hostName'];
-$data = json_encode($_POST);
+$token = $_POST['token'];
 
-echo $data;
+if ($token == getenv('TOKEN')) {
+   # code...
 
-$redis = new Redis();
+   $data = json_encode($_POST);
 
-$redis->connect('redisStack', 6379);
-if ($redis->ping()) {
-   echo "PONGn";
+   echo $data;
+
+   $redis = new Redis();
+
+   $redis->connect('redisStack', 6379);
+   if ($redis->ping()) {
+      echo "PONGn";
+   }
+
+   $redis->set($hostName, $data);
 }
-
-$redis->set($hostName, $data);
