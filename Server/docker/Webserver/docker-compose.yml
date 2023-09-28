@@ -30,10 +30,7 @@ services:
       - '6379:6379'
     volumes:
       - ../ClientData:/data
-      - ../Redis/redis.conf:/usr/local/etc/redis/redis.conf
     environment:
-      - REDIS_PASSWORD=redis
-      - REDIS_PORT=6379
       - REDIS_DATABASES=16
     networks:
       - internal
