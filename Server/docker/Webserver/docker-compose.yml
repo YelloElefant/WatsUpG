@@ -18,7 +18,7 @@ services:
     networks:
       - internal
     volumes:
-      - ./data/:/var/www/html
+      - ../Data/:/var/www/html
     restart: unless-stopped
 
 networks:
