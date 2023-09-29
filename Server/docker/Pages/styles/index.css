@@ -1,5 +1,16 @@
+:root {
+   --main-font-color: rgb(230, 237, 243);
+   --sidebar-width: 300px;
+}
+
 * {
    box-sizing: border-box;
+   color: var(--main-font-color);
+}
+
+a {
+   list-style: none;
+   text-decoration: none;
 }
 
 body {
@@ -13,10 +24,67 @@ html {
    height: 100%;
 }
 
-#topparet {
+header {
    background-color: #010409;
    height: 100%;
-   width: 75px;
+   width: var(--sidebar-width);
    border-right: #21262d solid thin;
    /* box-shadow: inset 0 1px 0 #21262d; */
+}
+
+#sidebarWrapper {
+   height: 100%;
+   width: var(--sidebar-width);
+   position: fixed;
+   z-index: 1;
+   top: 0;
+   left: 0;
+   overflow-x: hidden;
+   padding-top: 20px;
+}
+
+#sidebar {
+   padding: 20px;
+}
+
+#sidebarContent {
+   position: sticky;
+   top: 0;
+   height: 100%;
+   width: 100%;
+   background-color: #010409;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: space-between;
+}
+
+.sidebarLink {
+   height: 32px;
+   display: flex;
+   align-items: center;
+   justify-content: flex-start;
+   width: 100%;
+   cursor: pointer;
+   padding: 0 12px 0 12px;
+
+
+}
+
+.sidebarLink:hover {
+   background-color: #171b20;
+   border-radius: 0.375rem;
+}
+
+.icon {
+   --icon-size: 1em;
+   display: inline-block;
+   font-size: 1em;
+   height: 1em;
+   margin: 0;
+   width: 1em;
+}
+
+.linkSpan {
+   margin-left: 16px;
 }
