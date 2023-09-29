@@ -10,6 +10,7 @@ echo "Data: ";
 // fclose($file);
 $hostName = $_POST['hostName'];
 $token = $_POST['token'];
+$id = $_POST['id'];
 
 if ($token == getenv('TOKEN')) {
    # code...
@@ -28,7 +29,7 @@ if ($token == getenv('TOKEN')) {
       echo "PONGn";
    }
 
-   $redis->set($hostName, $data);
+   $redis->set($id, $data);
 } else {
    echo "Token is not correct";
 }
