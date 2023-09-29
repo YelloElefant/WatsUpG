@@ -1,0 +1,41 @@
+version: "3"
+services:
+  nginx:
+    build:
+      context: .
+      dockerfile: nginx/Dockerfile
+    ports:
+      - "2525:80"
+    networks:
+      - internal
+    volumes:
+      - ../Pages/:/var/www/html/
+      - /logs/nginx:/var/log/nginx/+
+    restart: unless-stopped
+  php:
+    image: php:fpm-alpine
+    build: ./
+    networks:
+      - internal
+    depends_on:
+      - redisStack
+    volumes:
+      - ../Pages/:/var/www/html
+    restart: unless-stopped
+    environment:
+      - TOKEN=123456789
+  redisStack:
+    container_name: redisStack
+    image: redis/redis-stack
+    restart: unless-stopped
+    ports:
+      - '6379:6379'
+      - "2526:8001"
+    volumes:
+      - ../Redis:/data
+    networks:
+      - internal
+
+networks:
+  internal:
+    driver: bridge
