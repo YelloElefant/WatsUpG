@@ -1,11 +1,13 @@
 :root {
    --main-font-color: rgb(230, 237, 243);
+   --main-font: 'Open Sans', sans-serif;
    --sidebar-width: 300px;
 }
 
 * {
    box-sizing: border-box;
    color: var(--main-font-color);
+   font-family: var(--main-font);
 }
 
 a {
@@ -40,7 +42,6 @@ header {
    top: 0;
    left: 0;
    overflow-x: hidden;
-   padding-top: 20px;
 }
 
 #sidebar {
@@ -67,6 +68,7 @@ header {
    width: 100%;
    cursor: pointer;
    padding: 0 12px 0 12px;
+   font-size: 1em;
 
 
 }
@@ -87,4 +89,10 @@ header {
 
 .linkSpan {
    margin-left: 16px;
+}
+
+#sidebarTitle {
+   font-size: 2em;
+   font-weight: 700;
+   text-align: center;
 }
