@@ -15,3 +15,13 @@ if (currentPath == "index.html" || currentPath == "" || currentPath == "index" |
 let navToHighlight = document.getElementById(currentPath + "Link");
 navToHighlight.style.backgroundColor = "#171b20";
 navToHighlight.style.borderRadius = "0.375rem";
+
+
+
+// let clientCard = document.getElementsByClassName("clientCard")[0];
+// console.log(clientCard);
+// let clients = document.getElementById("clients");
+
+// for (let i = 0; i < 7; i++) {
+//    clients.appendChild(clientCard.cloneNode(true));
+// }

@@ -97,12 +97,17 @@ header {
 }
 
 .icon {
-   --icon-size: 1em;
    display: inline-block;
    font-size: 1em;
-   height: 1em;
    margin: 0;
-   width: 1em;
+   height: 24px;
+   width: 24px;
+
+}
+
+.makeBigger {
+   height: 24px;
+   width: 24px;
 }
 
 .linkSpan {
@@ -122,6 +127,7 @@ header {
    flex: 2;
    width: 100%;
    padding: 10px;
+   height: 100%;
 }
 
 .clientCard {
@@ -134,6 +140,7 @@ header {
    flex-direction: row;
    align-items: center;
    justify-content: flex-start;
+   margin: 16px 0 16px 0;
 }
 
 .clientHead {
