@@ -17,7 +17,13 @@ navToHighlight.style.backgroundColor = "#171b20";
 navToHighlight.style.borderRadius = "0.375rem";
 
 async function Refresh() {
-   let data = await fetch("http://192.168.1.34:2525/SendData.php?id=Alex").then(response => response.text());
+   let data;
+   if (window.location.host == "192.168.1.34:2525") {
+      data = await fetch("http://192.168.1.34:2525/SendData.php?id=Alex" , { mode: 'no-cors'}).then(response => response.text());
+   }
+   else {
+      data = await fetch("https://watsupg.yelloelefant.com/SendData.php?id=Alex" , { mode: 'no-cors'}).then(response => response.text());
+   }
    let card = document.getElementsByClassName("clientInfo")[0];
    let hostName = card.children[0].children[1];
    let NetworkName = card.children[1].children[1];
