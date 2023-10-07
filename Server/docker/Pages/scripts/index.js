@@ -45,7 +45,7 @@ async function Refresh() {
 }
 
 Refresh();
-//setInterval(Refresh, 1000)
+setInterval(Refresh, 1000)
 
 
 // let clientCard = document.getElementsByClassName("clientCard")[0];
