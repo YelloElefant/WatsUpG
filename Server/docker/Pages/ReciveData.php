@@ -10,6 +10,7 @@ echo "Data: ";
 // fclose($file);
 $hostName = $_POST['hostName'];
 $token = $_POST['token'];
+echo $token;
 $id = $_POST['id'];
 
 if ($token == getenv('TOKEN')) {

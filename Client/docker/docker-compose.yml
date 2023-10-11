@@ -1,6 +1,6 @@
 version: "3"
 services:
   ubuntu:
-    image: ubuntu:latest
+    image: watsupg:test
     container_name: ubuntutest
-    restart: unless-stopped
+    #restart: unless-stopped

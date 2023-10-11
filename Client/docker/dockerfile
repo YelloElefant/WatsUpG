@@ -1,1 +1,22 @@
 FROM ubuntu:latest
+
+RUN apt-get update && apt-get install -y cron
+RUN apt-get install -y curl
+RUN apt-get install -y net-tools
+
+ADD ./data/cronjob /etc/cron.d/cronjob
+
+ADD ./data/cronjob.sh /etc/cron.d/cronjob.sh
+
+RUN chmod +x /etc/cron.d/cronjob.sh
+RUN chmod +x /etc/cron.d/cronjob
+
+RUN crontab -l | { cat; echo "* * * * * /cronjob.sh"; } | crontab -
+RUN crontab -l | { cat; echo "* * * * * (sleep 10; /cronjob.sh)"; } | crontab -
+
+
+RUN touch /var/log/cron.log
+
+
+
+CMD cron

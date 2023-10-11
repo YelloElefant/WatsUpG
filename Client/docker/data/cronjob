@@ -1,0 +1,10 @@
+* * * * * /cronjob.sh
+
+
+
+
+* * * * * (sleep 10; /cronjob.sh)
+
+
+
+
