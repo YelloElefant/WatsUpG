@@ -1,1 +1,1 @@
-time=18:40:52&token=123456789&id=BigPPServer&hostName=BigPPServer&networkName=testing&privateIpv4=192.168.1.34&privateIpv6=fe80::a2d3:c1ff:fe32:170a&cpu=0.37&memory=57.81&upTime=209 http://192.168.1.34:2525/ReciveData.php
+time=18:51:04&token=123456789&id=BigPPServer&hostName=BigPPServer&networkName=testing&privateIpv4=192.168.1.34&privateIpv6=fe80::a2d3:c1ff:fe32:170a&cpu=0.68&memory=58.81&upTime=209 http://192.168.1.34:2525/ReciveData.php

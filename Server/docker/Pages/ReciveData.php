@@ -31,6 +31,9 @@ if ($token == getenv('TOKEN')) {
    }
 
    $redis->set($id, $data);
+
+   //check if id is in the group data set
+   $redis->sAdd('knownClients', $id);
 } else {
    echo "Token is not correct";
 }

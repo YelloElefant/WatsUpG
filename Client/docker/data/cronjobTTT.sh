@@ -45,4 +45,4 @@ echo "Script called. Count: $1"
 
 sleep 1
 
-./cronjob.sh $(( $1 + 1 ))
+/home/yelloelefant/Coding/WatsUpG/Client/docker/data/cronjobTTT.sh $(( $1 + 1 ))
