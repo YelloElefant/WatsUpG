@@ -3,20 +3,21 @@ FROM ubuntu:latest
 RUN apt-get update && apt-get install -y cron
 RUN apt-get install -y curl
 RUN apt-get install -y net-tools
+RUN apt-get install -y iproute2
 
-ADD ./data/cronjob /etc/cron.d/cronjob
+ADD ./data/cronjob /cronjob
 
-ADD ./data/cronjob.sh /etc/cron.d/cronjob.sh
+ADD ./data/cronjob.sh /cronjob.sh
 
-RUN chmod +x /etc/cron.d/cronjob.sh
-RUN chmod +x /etc/cron.d/cronjob
+RUN chmod a+x /cronjob.sh
+RUN chmod a+x /cronjob
 
 RUN crontab -l | { cat; echo "* * * * * /cronjob.sh"; } | crontab -
-RUN crontab -l | { cat; echo "* * * * * (sleep 10; /cronjob.sh)"; } | crontab -
 
 
 RUN touch /var/log/cron.log
 
+ADD ./data/start.sh /start.sh
+RUN chmod a+x /start.sh
 
-
-CMD cron
+CMD ["cron", "-f"]
