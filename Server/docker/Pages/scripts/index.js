@@ -33,6 +33,7 @@ async function Refresh() {
    let cpuUsage = card.children[4].children[1];
    let ramUsage = card.children[5].children[1];
    let upTime = card.children[6].children[1];
+   let timeStamp = card.children[7].children[1];
    let json = JSON.parse(data);
    //console.log(json);
    name.innerHTML = json["id"];
@@ -43,10 +44,11 @@ async function Refresh() {
    cpuUsage.innerHTML = json["cpu"] + '%';
    ramUsage.innerHTML = json["memory"] + '%';
    upTime.innerHTML = json["upTime"] + ' days';
+   timeStamp.innerHTML = json["time"];
 }
 
 Refresh();
-setInterval(Refresh, 1000)
+setInterval(Refresh, 500)
 
 
 // let clientCard = document.getElementsByClassName("clientCard")[0];

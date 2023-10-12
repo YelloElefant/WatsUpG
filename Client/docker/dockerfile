@@ -17,7 +17,4 @@ RUN crontab -l | { cat; echo "* * * * * /cronjob.sh"; } | crontab -
 
 RUN touch /var/log/cron.log
 
-ADD ./data/start.sh /start.sh
-RUN chmod a+x /start.sh
-
 CMD ["cron", "-f"]
