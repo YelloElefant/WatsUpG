@@ -61,3 +61,6 @@ echo "Script called. Count: $1"
 sleep 1
 
 /home/yelloelefant/Coding/WatsUpG/Client/docker/data/cronjobTTT.sh $(( $1 + 1 ))
+
+#checks if variable is empty
+#[[ ! -z "$TERM" ]] && echo "Not empty" || echo "Empty"

@@ -42,7 +42,7 @@ async function Refresh() {
          data = await fetch("http://192.168.1.34:2525/SendData.php?id=" + id, { mode: 'no-cors' }).then(response => response.text());
       }
       else {
-         data = await fetch("https://watsupg.yelloelefant.com/SendData.php?id=BigPPServer", { mode: 'no-cors' }).then(response => response.text());
+         data = await fetch("https://watsupg.yelloelefant.com/SendData.php?id=" + id, { mode: 'no-cors' }).then(response => response.text());
       }
 
       let cardInfo = card.children[1];

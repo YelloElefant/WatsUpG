@@ -2,5 +2,7 @@ version: "3"
 services:
   ubuntu:
     image: watsupg:test
-    container_name: ubuntutest
+    container_name: watsupg
+    networks:
+      - host
     #restart: unless-stopped
