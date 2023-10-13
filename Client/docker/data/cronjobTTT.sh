@@ -51,13 +51,13 @@ then
 fi
 
 
-# if [ $1 -eq 59 ]
-# then
-#   exit 0
-# fi
+if [ $1 -eq 59 ]
+then
+  exit 0
+fi
 
-#echo "Script called. Count: $1"
+echo "Script called. Count: $1"
 
-#sleep 1
+sleep 1
 
-#/home/yelloelefant/Coding/WatsUpG/Client/docker/data/cronjobTTT.sh $(( $1 + 1 ))
+/home/yelloelefant/Coding/WatsUpG/Client/docker/data/cronjobTTT.sh $(( $1 + 1 ))
