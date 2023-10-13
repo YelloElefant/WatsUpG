@@ -27,7 +27,6 @@ async function Refresh() {
       ids = await fetch("https://watsupg.yelloelefant.com/KnownClientsData.php", { mode: 'no-cors' }).then(response => response.text());
    }
    ids = JSON.parse(ids);
-
    for (let i = 0; i < ids.length; i++) {
       const id = ids[i];
       let makeNew = false;

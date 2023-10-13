@@ -5,7 +5,7 @@ hostName=$(hostname)
 #echo $hostName
 
 # get id from id file
-id=$hostName
+#id=$hostName
 
 id=$(cat id.txt)
 

@@ -5,9 +5,9 @@ hostName=$(hostname)
 #echo $hostName
 
 # get id from id file
-id=$hostName
+#id=$hostName
 
-id=$(cat id.txt)
+id=$(cat /id.txt)
 
 echo $id
 
@@ -47,7 +47,7 @@ echo $newId
 
 if [ $newId != 'known' ]
 then
-  echo $newId > id.txt
+  echo $newId > /id.txt
 fi
 
 

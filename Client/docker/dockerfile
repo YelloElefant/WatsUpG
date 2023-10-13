@@ -17,5 +17,6 @@ RUN crontab -l | { cat; echo "* * * * * /cronjob.sh"; } | crontab -
 
 
 RUN touch /var/log/cron.log
+RUN touch /id.txt
 
 CMD ["cron", "-f"]
