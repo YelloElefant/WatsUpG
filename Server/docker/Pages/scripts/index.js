@@ -18,6 +18,7 @@ navToHighlight.style.borderRadius = "0.375rem";
 
 async function Refresh() {
    let cardTemplate = document.getElementById("clientCardTemp").children[0];
+   //console.log(cardTemplate);
    //get all ids to refresh
    let ids;
    if (window.location.host == "192.168.1.34:2525") {

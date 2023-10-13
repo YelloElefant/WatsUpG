@@ -3,5 +3,5 @@
 $redis = new Redis();
 $redis->connect('redisStack', 6379);
 
-$knownClients = $redis->sMembers('knownClients');
+$knownClients = $redis->sMembers('usedIds');
 echo json_encode($knownClients);
