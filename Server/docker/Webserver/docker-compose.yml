@@ -13,8 +13,9 @@ services:
       - /logs/nginx:/var/log/nginx/+
     restart: unless-stopped
   php:
-    image: php:fpm-alpine
-    build: ./
+    build:
+      context: .
+      dockerfile: ./php/Dockerfile
     networks:
       - internal
     depends_on:

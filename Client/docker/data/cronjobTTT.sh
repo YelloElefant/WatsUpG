@@ -3,6 +3,15 @@
 #get host name
 hostName=$(hostname)
 #echo $hostName
+
+# get id from id file
+id=$hostName
+
+id=$(cat id.txt)
+
+echo $id
+
+
 #get network name
 networkName='Trotter'
 #echo 'Trotter'
@@ -28,21 +37,27 @@ currentTime=$(date | cut -d' ' -f5)
 
 
 #curl -X POST -d '{id="'"$hostName"'"&hostName="'"$hostName"'"&networkName="Trotter"&privateIpv4="'"$privateIpv4"'"&privateIpv6="'"$privateIpv6"'"&cpu="'"$cpu"'memory="'"$memory"'uptime="'"$upTime"'"&token="'"123456789"'"}' http://192.168.1.34:2525/ReciveData.php
-echo 'time='$currentTime'&token=123456789&id='$hostName'&hostName='$hostName'&networkName=testing&privateIpv4='$privateIpv4'&privateIpv6='$privateIpv6'&cpu='$cpu'&memory='$memory'&upTime='$upTime'' http://192.168.1.34:2525/ReciveData.php > hello.txt
-echo updated
-curl -X POST \
--d 'time='$currentTime'&token=123456789&id='$hostName'&hostName='$hostName'&networkName=testing&privateIpv4='$privateIpv4'&privateIpv6='$privateIpv6'&cpu='$cpu'&memory='$memory'&upTime='$upTime'' http://192.168.1.34:2525/ReciveData.php
- 
+#echo 'time='$currentTime'&token=123456789&id='$hostName'&hostName='$hostName'&networkName=testing&privateIpv4='$privateIpv4'&privateIpv6='$privateIpv6'&cpu='$cpu'&memory='$memory'&upTime='$upTime'' http://192.168.1.34:2525/ReciveData.php > hello.txt
+#echo updated
+response=$(curl -X POST -d 'time='$currentTime'&token=123456789&id='$id'&hostName='$hostName'&networkName=testing&privateIpv4='$privateIpv4'&privateIpv6='$privateIpv6'&cpu='$cpu'&memory='$memory'&upTime='$upTime'' http://192.168.1.34:2525/ReciveData.php)
 
+echo $response 
+newId=$(echo $response | grep 'id' | cut -d'=' -f2)
+echo $newId
 
-
-if [ $1 -eq 59 ]
+if [ $newId != 'known' ]
 then
-  exit 0
+  echo $newId > id.txt
 fi
 
-echo "Script called. Count: $1"
 
-sleep 1
+# if [ $1 -eq 59 ]
+# then
+#   exit 0
+# fi
 
-/home/yelloelefant/Coding/WatsUpG/Client/docker/data/cronjobTTT.sh $(( $1 + 1 ))
+#echo "Script called. Count: $1"
+
+#sleep 1
+
+#/home/yelloelefant/Coding/WatsUpG/Client/docker/data/cronjobTTT.sh $(( $1 + 1 ))
