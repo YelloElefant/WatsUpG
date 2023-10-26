@@ -1,11 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+<?php
+$redis = new Redis();
+$redis->connect('redisStack', 6379);
+
+?>
 
 <head>
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <link rel="stylesheet" href="./styles/index.css">
-   <title>WatsUpG</title>
+   <title>Clients</title>
    <link rel="preconnect" href="https://fonts.googleapis.com">
    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
@@ -14,6 +19,7 @@
 
 <body>
    <div id="contentWrapper">
+
       <div id="contentLeft">
          <div id="sidebarWrapper">
             <div id="sidebar">
@@ -21,7 +27,7 @@
                   <h1 id="sidebarTitle">WatsUpG</h1>
                </div>
                <div id="sidebarContent">
-                  <a href="#" class="sidebarLink" id="dashboardLink">
+                  <a href="index.php" class="sidebarLink" id="dashboardLink">
                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon" aria-hidden="true" role="img">
                         <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
                         <line x1="3" y1="9" x2="21" y2="9"></line>
@@ -74,64 +80,48 @@
          </div>
       </div>
       <div id="contentRight">
-         <div id="clientsWrapper">
-            <div id="clients">
+         <div id="clientsListWrapper">
+            <div id="clientsList">
             </div>
          </div>
       </div>
+
    </div>
    <script src="./scripts/index.js"></script>
-   <script src="./scripts/Refresh.js"></script>
-
-   <div style="display: none;" id="clientCardTemp">
-      <div class="clientCard">
-         <div class="clientHead">
-            <div class="clientImage">
-               <svg width="50px" height="50" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#e6edf3">
-                  <path fill-rule="evenodd" clip-rule="evenodd" d="M2 6C2 4.34315 3.34315 3 5 3H19C20.6569 3 22 4.34315 22 6V15C22 16.6569 20.6569 18 19 18H13V19H15C15.5523 19 16 19.4477 16 20C16 20.5523 15.5523 21 15 21H9C8.44772 21 8 20.5523 8 20C8 19.4477 8.44772 19 9 19H11V18H5C3.34315 18 2 16.6569 2 15V6ZM5 5C4.44772 5 4 5.44772 4 6V15C4 15.5523 4.44772 16 5 16H19C19.5523 16 20 15.5523 20 15V6C20 5.44772 19.5523 5 19 5H5Z" />
-               </svg>
-            </div>
-            <div class="clientName">
-               <span>Client Name</span>
-            </div>
+</body>
+<div style="display: none;" id="clientCardTemp">
+   <div class="clientCardList">
+      <div class="clientHead">
+         <div class="clientImage">
+            <svg width="50px" height="50" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#e6edf3">
+               <path fill-rule="evenodd" clip-rule="evenodd" d="M2 6C2 4.34315 3.34315 3 5 3H19C20.6569 3 22 4.34315 22 6V15C22 16.6569 20.6569 18 19 18H13V19H15C15.5523 19 16 19.4477 16 20C16 20.5523 15.5523 21 15 21H9C8.44772 21 8 20.5523 8 20C8 19.4477 8.44772 19 9 19H11V18H5C3.34315 18 2 16.6569 2 15V6ZM5 5C4.44772 5 4 5.44772 4 6V15C4 15.5523 4.44772 16 5 16H19C19.5523 16 20 15.5523 20 15V6C20 5.44772 19.5523 5 19 5H5Z" />
+            </svg>
          </div>
-         <div class="clientInfo">
-            <div class="clientInfoBox">
-               <span class="clientInfoBoxName">Host Name</span>
-               <span class="clientInfoBoxContent"></span>
-            </div>
-            <div class="clientInfoBox">
-               <span class="clientInfoBoxName">Network name</span>
-               <span class="clientInfoBoxContent"></span>
-            </div>
-            <div class="clientInfoBox">
-               <span class="clientInfoBoxName">Priv IPv4</span>
-               <span class="clientInfoBoxContent">XXX.XXX.XXX.XXX</span>
-            </div>
-            <div class="clientInfoBox">
-               <span class="clientInfoBoxName">Priv IPv6</span>
-               <span class="clientInfoBoxContent">XXX.XXX.XXX.XXX</span>
-            </div>
-            <div class="clientInfoBox">
-               <span class="clientInfoBoxName">CPU usage</span>
-               <span class="clientInfoBoxContent">XXX%</span>
-            </div>
-            <div class="clientInfoBox">
-               <span class="clientInfoBoxName">Ram usage</span>
-               <span class="clientInfoBoxContent">XXX%</span>
-            </div>
-            <div class="clientInfoBox">
-               <span class="clientInfoBoxName">Up time</span>
-               <span class="clientInfoBoxContent">xxx days</span>
-            </div>
-            <div class="clientInfoBox">
-               <span class="clientInfoBoxName">Time stamp</span>
-               <span class="clientInfoBoxContent">xx:xx:xx</span>
+         <div class="clientName">
+            <span>Client Name</span>
+         </div>
+      </div>
+      <div class="clientInfo">
+         <div class="clientInfoBox">
+            <span class="clientInfoBoxName">Host Name</span>
+            <span class="clientInfoBoxContent"></span>
+         </div>
+      </div>
+      <div class="clientQuickSettings">
+         <div class="clientQuickSettingsBox"><span class="clientQuickSettingsBoxName">Quick Settings</span>
+            <div class="clientQuickSettingsBoxContent">
+               <div class="clientQuickSettingsBoxContentItem"><span class="clientQuickSettingsBoxContentItemName">Pause</span>
+                  <div class="clientQuickSettingsBoxContentItemContent"><label class="switch"><input type="checkbox" class="clientQuickSettingsBoxContentItemContentInput" id="mute" name="mute" value="mute"><span class="slider round"></span></label></div>
+               </div>
+               <div class="clientQuickSettingsBoxContentItem"><span class="clientQuickSettingsBoxContentItemName">Disable</span>
+                  <div class="clientQuickSettingsBoxContentItemContent"><label class="switch"><input type="checkbox" class="clientQuickSettingsBoxContentItemContentInput" id="disable" name="disable" value="disable"><span class="slider round"></span></label></div>
+               </div>
             </div>
          </div>
       </div>
    </div>
+</div>
+<script src="./scripts/Clients.js"></script>
 
-</body>
 
 </html>
