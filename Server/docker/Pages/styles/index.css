@@ -239,3 +239,10 @@ header {
    justify-content: center;
 
 }
+
+#errorCode {
+   display: flex;
+   align-items: center;
+   justify-content: center;   
+   height: 100%;
+}
