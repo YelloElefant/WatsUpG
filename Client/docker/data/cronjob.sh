@@ -1,5 +1,8 @@
 #!/bin/bash
 
+/endPointQuery.sh
+
+
 #get host name
 hostName=$(hostname)
 #echo $hostName

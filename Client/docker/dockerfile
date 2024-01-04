@@ -7,17 +7,20 @@ RUN apt-get install -y net-tools
 RUN apt-get install -y iproute2
 
 ADD ./data/cronjob /cronjob
-
 ADD ./data/cronjob.sh /cronjob.sh
+ADD ./data/endPointQuery.sh /endPointQuery.sh
 
 RUN chmod a+x /cronjob.sh
 RUN chmod a+x /cronjob
+RUN chmod a+x /endPointQuery.sh
 
 RUN crontab -l | { cat; echo "* * * * * /cronjob.sh"; } | crontab -
+# RUN crontab -l | { cat; echo "* * * * * /endPointQuery.sh"; } | crontab -
 
 
 RUN touch /var/log/cron.log
 RUN mkdir /data
 RUN touch /data/id
+RUN touch /data/serverPath
 
 CMD ["cron", "-f"]

@@ -3,6 +3,10 @@ services:
   watsupg:
     image: yelloelefant/watsupg
     container_name: watsupg-client
+    environment:
+      - serverPrivateIp=192.168.1.34
+      - serverDomainName=watsupg.yelloelefant.com
+      - token=123456789
     network_mode: host
     volumes:
       - ./clientData:/data
