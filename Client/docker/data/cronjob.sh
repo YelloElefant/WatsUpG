@@ -33,7 +33,7 @@ upTime=$(uptime | awk '{print $3,$4}' | cut -d' ' -f1)
 #echo $upTime
 # get disk usage as a percentage
 #df -h | grep '/dev/sda1' | awk '{print $5}'
-currentTime=$(date | cut -d' ' -f4)
+currentTime=$(date | cut -d' ' -f5)
 
 
 #curl -X POST -d '{id="'"$hostName"'"&hostName="'"$hostName"'"&networkName="Trotter"&privateIpv4="'"$privateIpv4"'"&privateIpv6="'"$privateIpv6"'"&cpu="'"$cpu"'memory="'"$memory"'uptime="'"$upTime"'"&token="'"123456789"'"}' http://192.168.1.34:2525/ReciveData.php
