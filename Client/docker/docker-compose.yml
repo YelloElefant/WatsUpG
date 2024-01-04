@@ -6,4 +6,4 @@ services:
     network_mode: host
     volumes:
       - ./clientData:/data
-    #restart: unless-stopped
+    restart: unless-stopped
