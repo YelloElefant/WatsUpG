@@ -29,8 +29,14 @@ async function Refresh() {
       }
 
       let cardInfo = card.children[1];
+      let cardHead = cardInfo.previousSibling.previousSibling
 
-      let name = cardInfo.previousSibling.previousSibling.children[1].children[0];
+
+      let name = cardHead.children[0].children[1];
+      let adapter = cardHead.children[1].children[0];
+      let adapterProtocol = cardHead.children[1].children[1];
+
+
       let hostName = cardInfo.children[0].children[1];
       let NetworkName = cardInfo.children[1].children[1];
       let pubIP = cardInfo.children[2].children[1];
@@ -43,6 +49,8 @@ async function Refresh() {
       //console.log(json);
       card.id = json["id"];
       name.innerHTML = json["id"];
+      adapter.innerHTML = json["adapter"];
+      adapterProtocol.innerHTML = json["adapterProtocol"];
       hostName.innerHTML = json["hostName"];
       NetworkName.innerHTML = json["networkName"];
       pubIP.innerHTML = json["privateIpv4"];
@@ -51,6 +59,7 @@ async function Refresh() {
       ramUsage.innerHTML = json["memory"] + '%';
       upTime.innerHTML = json["upTime"] + ' days';
       timeStamp.innerHTML = json["time"];
+
 
       let clients = document.getElementById("clients");
 
@@ -63,7 +72,7 @@ async function Refresh() {
       let cards = document.getElementsByClassName("clientCard");
       for (let i = 0; i < cards.length; i++) {
          const card = cards[i];
-         if (card.children[1].previousSibling.previousSibling.children[1].children[0].innerHTML == id) {
+         if (card.children[1].previousSibling.previousSibling.children[0].children[1].innerHTML == id) {
             return card;
          }
       }

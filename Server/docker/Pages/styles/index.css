@@ -145,11 +145,38 @@ header {
 
 .clientHead {
    display: flex;
+   flex-direction: row;
+   align-items: center;
+   justify-content: center;
+   flex-wrap: nowrap;
+   border-right: var(--secondary-border-color) solid thin;
+   height: 100%;
+   /* margin-right: 15px; */
+}
+
+.clientIdentity {
+   display: flex;
    flex-direction: column;
    align-items: center;
    justify-content: center;
    flex-wrap: nowrap;
-   margin-right: 30px;
+   margin-right: 5px;
+}
+
+.clientadapterInfo {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: space-evenly;
+   flex-wrap: nowrap;
+   padding-right: 10px;
+   margin-left: 5px;
+   flex: 1;
+   height: 100%;
+}
+
+.clientadapterInfo div {
+   text-align: center;
 }
 
 .clientName {
