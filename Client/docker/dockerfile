@@ -16,7 +16,6 @@ RUN chmod a+x /cronjob
 RUN chmod a+x /endPointQuery.sh
 
 RUN crontab -l | { cat; echo "* * * * * /cronjob.sh"; } | crontab -
-# RUN crontab -l | { cat; echo "* * * * * /endPointQuery.sh"; } | crontab -
 
 
 RUN touch /var/log/cron.log

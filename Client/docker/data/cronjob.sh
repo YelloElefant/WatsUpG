@@ -1,7 +1,10 @@
 #!/bin/bash
 
-/endPointQuery.sh
-
+echo $1
+if [[ $1 == *"0"* ]]
+then
+  /endPointQuery.sh
+fi
 
 #get host name
 hostName=$(hostname)
@@ -12,8 +15,10 @@ hostName=$(hostname)
 
 id=$(cat /data/id)
 serverPath=$(cat /data/serverPath)
+echo $serverPath
 defaultAdapter=$(ip route | grep -m1 default | cut -d ' ' -f5)
-defaultAdapterProtocol=$(lshw -class network -short | grep $defaultAdapter | awk -F 'network' '{print $2}' | awk '{$1=$1};1' | cut -d ' ' -f1)
+logicalName=$(lshw -c network | grep $defaultAdapter -B 5 -A 5 | grep "logical name:" -m1 | awk '{$1=$1};1' | cut -d ' ' -f3)
+defaultAdapterProtocol=$(lshw -class network | awk '/description/ {via_line=$0} /'$defaultAdapter'/ {print via_line}' | awk '{$1=$1};1' | cut -d ' ' -f2)
 
 echo $id
 

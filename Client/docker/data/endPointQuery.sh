@@ -10,23 +10,24 @@ serverPrivateIp=$(export | grep serverPrivateIp | cut -d '=' -f2 | cut -d '"' -f
 #get serverPublicHostName environment variable
 serverDomainName=$(export | grep serverDomainName | cut -d '=' -f2 | cut -d '"' -f2)
 
+response=$(curl -f -X POST -d 'token='123456789'' http://$serverPrivateIp:2525/EndPointQuery.php)
 
-response=$(curl -X POST -d 'token='123456789'' http://$serverPrivateIp:2525/EndPointQuery.php)
+if [ -z $response ]; then 
+  echo "private ip is empt"; 
+  response2=$(curl -f -X POST -d 'token='123456789'' https://$serverDomainName/EndPointQuery.php)
+  echo $response2
+  if [ $response2 = 'up' ]
+  then
+    echo $serverDomainName > /data/serverPath
+  fi
+else 
 
-if [ $response = 'up' ]
-then
-  echo $serverPrivateIp > /data/serverPath
-  exit 0
+  if [ $response = 'up' ]
+  then
+    echo $serverPrivateIp > /data/serverPath
+  fi
+
 fi
-
-response=$(curl -X POST -d 'token='123456789'' https://$serverDomainName:2525/EndPointQuery.php)
-
-if [ $response = 'up' ]
-then
-  echo $serverDomainName > /data/serverPath
-  exit 0
-fi
-
 
 #will call itself again with a count 5 times before exiting, thus setting the script to run every 5 seconds
 
