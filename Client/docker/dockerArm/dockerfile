@@ -10,9 +10,11 @@ RUN apt-get install -y lshw
 ADD ./data/cronjob /cronjob
 
 ADD ./data/cronjobArm.sh /cronjobArm.sh
+ADD ./data/endPointQuery.sh /endPointQuery.sh
 
 RUN chmod a+x /cronjobArm.sh
 RUN chmod a+x /cronjob
+RUN chmod a+x /endPointQuery.sh
 
 RUN crontab -l | { cat; echo "* * * * * /cronjobArm.sh"; } | crontab -
 
@@ -20,5 +22,6 @@ RUN crontab -l | { cat; echo "* * * * * /cronjobArm.sh"; } | crontab -
 RUN touch /var/log/cron.log
 RUN mkdir /data
 RUN touch /data/id
+RUN touch /data/serverPath
 
 CMD ["cron", "-f"]

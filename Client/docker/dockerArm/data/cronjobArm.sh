@@ -1,5 +1,11 @@
 #!/bin/bash
 
+echo $1
+if [[ $1 == *"0"* ]]
+then
+  /endPointQuery.sh
+fi
+
 #get host name
 hostName=$(hostname)
 #echo $hostName
@@ -8,6 +14,8 @@ hostName=$(hostname)
 #id=$hostName
 
 id=$(cat /data/id)
+serverPath=$(cat /data/serverPath)
+echo $serverPath
 defaultAdapter=$(ip route | grep -m1 default | cut -d ' ' -f5)
 logicalName=$(lshw -c network | grep $defaultAdapter -B 5 -A 5 | grep "logical name:" -m1 | awk '{$1=$1};1' | cut -d ' ' -f3)
 defaultAdapterProtocol=$(lshw -class network | awk '/description/ {via_line=$0} /'$defaultAdapter'/ {print via_line}' | awk '{$1=$1};1' | cut -d ' ' -f2)
@@ -44,7 +52,7 @@ currentTime=$(date | cut -d' ' -f5)
 #curl -X POST -d '{id="'"$hostName"'"&hostName="'"$hostName"'"&networkName="Trotter"&privateIpv4="'"$privateIpv4"'"&privateIpv6="'"$privateIpv6"'"&cpu="'"$cpu"'memory="'"$memory"'uptime="'"$upTime"'"&token="'"123456789"'"}' http://192.168.1.34:2525/ReciveData.php
 #echo 'time='$currentTime'&token=123456789&id='$hostName'&hostName='$hostName'&networkName=testing&privateIpv4='$privateIpv4'&privateIpv6='$privateIpv6'&cpu='$cpu'&memory='$memory'&upTime='$upTime'' http://192.168.1.34:2525/ReciveData.php > hello.txt
 #echo updated
-response=$(curl -X POST -d 'time='$currentTime'&token=123456789&id='$id'&hostName='$hostName'&networkName=testing&privateIpv4='$privateIpv4'&privateIpv6='$privateIpv6'&cpu='$cpu'&memory='$memory'&upTime='$upTime'&adapter='$defaultAdapter'&adapterProtocol='$defaultAdapterProtocol'' http://192.168.1.34:2525/ReciveData.php)
+response=$(curl -X POST -d 'time='$currentTime'&token=123456789&id='$id'&hostName='$hostName'&networkName=testing&privateIpv4='$privateIpv4'&privateIpv6='$privateIpv6'&cpu='$cpu'&memory='$memory'&upTime='$upTime'&adapter='$defaultAdapter'&adapterProtocol='$defaultAdapterProtocol'' https://$serverPath/ReciveData.php)
 
 echo $response 
 newId=$(echo $response | grep 'id' | cut -d'=' -f2)
