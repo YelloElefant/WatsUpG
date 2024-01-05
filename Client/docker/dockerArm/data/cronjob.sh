@@ -18,19 +18,19 @@ networkName='Trotter'
 
 # get private ipv4 address
 privateIpv4=$(ip addr show dev eth0 | grep 'inet' | xargs | cut -d' ' -f2 | cut -d'/' -f1)
-echo $privateIpv4
+#echo $privateIpv4
 # get private ipv6 address
 privateIpv6=$(ip addr show dev eth0 | grep 'inet6' | xargs | cut -d' ' -f2 | cut -d'/' -f1)
-echo $privateIpv6
+#echo $privateIpv6
 # get cpu usage as a percentage with 2 decimal places
 cpu=$(top -bn1 | grep load | awk '{printf "%.2f", $(NF-2)}' | sed -e 's/\ *$//g')
-echo $cpu
+#echo $cpu
 # get memory usage as a percentage
 memory=$(free | grep Mem | awk '{printf "%.2f", $3/$2 * 100.0}')
-echo $memory
+#echo $memory
 # get up time
 upTime=$(uptime | awk '{print $3,$4}' | cut -d' ' -f1)
-echo $upTime
+#echo $upTime
 # get disk usage as a percentage
 #df -h | grep '/dev/sda1' | awk '{print $5}'
 currentTime=$(date | cut -d' ' -f5)
