@@ -12,6 +12,8 @@ hostName=$(hostname)
 
 id=$(cat /data/id)
 serverPath=$(cat /data/serverPath)
+defaultAdapter=$(ip route | grep -m1 default | cut -d ' ' -f5)
+defaultAdapterProtocol=$(lshw -class network -short | grep $defaultAdapter | awk -F 'network' '{print $2}' | awk '{$1=$1};1' | cut -d ' ' -f1)
 
 echo $id
 
@@ -21,10 +23,10 @@ networkName='Trotter'
 #echo 'Trotter'
 
 # get private ipv4 address
-privateIpv4=$(ip addr show dev eth0 | grep 'inet' | xargs | cut -d' ' -f2 | cut -d'/' -f1)
+privateIpv4=$(ip addr show dev $defaultAdapter | grep 'inet' | xargs | cut -d' ' -f2 | cut -d'/' -f1)
 #echo $privateIpv4
 # get private ipv6 address
-privateIpv6=$(ip addr show dev eth0 | grep 'inet6' | xargs | cut -d' ' -f2 | cut -d'/' -f1)
+privateIpv6=$(ip addr show dev $defaultAdapter | grep 'inet6' | xargs | cut -d' ' -f2 | cut -d'/' -f1)
 #echo $privateIpv6
 # get cpu usage as a percentage with 2 decimal places
 cpu=$(top -bn1 | grep load | awk '{printf "%.2f", $(NF-2)}' | sed -e 's/\ *$//g')
@@ -43,7 +45,7 @@ currentTime=$(date | cut -d' ' -f5)
 #curl -X POST -d '{id="'"$hostName"'"&hostName="'"$hostName"'"&networkName="Trotter"&privateIpv4="'"$privateIpv4"'"&privateIpv6="'"$privateIpv6"'"&cpu="'"$cpu"'memory="'"$memory"'uptime="'"$upTime"'"&token="'"123456789"'"}' http://192.168.1.34:2525/ReciveData.php
 #echo 'time='$currentTime'&token=123456789&id='$hostName'&hostName='$hostName'&networkName=testing&privateIpv4='$privateIpv4'&privateIpv6='$privateIpv6'&cpu='$cpu'&memory='$memory'&upTime='$upTime'' http://192.168.1.34:2525/ReciveData.php > hello.txt
 #echo updated
-response=$(curl -X POST -d 'time='$currentTime'&token=123456789&id='$id'&hostName='$hostName'&networkName=testing&privateIpv4='$privateIpv4'&privateIpv6='$privateIpv6'&cpu='$cpu'&memory='$memory'&upTime='$upTime'' http://$serverPath:2525/ReciveData.php)
+response=$(curl -X POST -d 'time='$currentTime'&token=123456789&id='$id'&hostName='$hostName'&networkName=testing&privateIpv4='$privateIpv4'&privateIpv6='$privateIpv6'&cpu='$cpu'&memory='$memory'&upTime='$upTime'&adapter='$defaultAdapter'&adapterProtocol='$defaultAdapterProtocol'' http://$serverPath:2525/ReciveData.php)
 
 echo $response 
 newId=$(echo $response | grep 'id' | cut -d'=' -f2)
