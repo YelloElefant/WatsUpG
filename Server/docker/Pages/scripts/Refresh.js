@@ -3,8 +3,8 @@ async function Refresh() {
    //console.log(cardTemplate);
    //get all ids to refresh
    let ids;
-   if (window.location.host == "192.168.1.34:2525") {
-      ids = await fetch("http://192.168.1.34:2525/KnownClientsData.php", { mode: 'no-cors' }).then(response => response.text());
+   if (window.location.host == "192.168.1.29:2525") {
+      ids = await fetch("http://192.168.1.29:2525/KnownClientsData.php", { mode: 'no-cors' }).then(response => response.text());
    }
    else {
       ids = await fetch("https://watsupg.yelloelefant.com/KnownClientsData.php", { mode: 'no-cors' }).then(response => response.text());
@@ -21,16 +21,22 @@ async function Refresh() {
       }
 
       let data;
-      if (window.location.host == "192.168.1.34:2525") {
-         data = await fetch("http://192.168.1.34:2525/SendData.php?id=" + id, { mode: 'no-cors' }).then(response => response.text());
+      if (window.location.host == "192.168.1.29:2525") {
+         data = await fetch("http://192.168.1.29:2525/SendData.php?id=" + id, { mode: 'no-cors' }).then(response => response.text());
       }
       else {
          data = await fetch("https://watsupg.yelloelefant.com/SendData.php?id=" + id, { mode: 'no-cors' }).then(response => response.text());
       }
 
       let cardInfo = card.children[1];
+      let cardHead = cardInfo.previousSibling.previousSibling
 
-      let name = cardInfo.previousSibling.previousSibling.children[1].children[0];
+
+      let name = cardHead.children[0].children[1];
+      let adapter = cardHead.children[1].children[0];
+      let adapterProtocol = cardHead.children[1].children[1];
+
+
       let hostName = cardInfo.children[0].children[1];
       let NetworkName = cardInfo.children[1].children[1];
       let pubIP = cardInfo.children[2].children[1];
@@ -43,6 +49,8 @@ async function Refresh() {
       //console.log(json);
       card.id = json["id"];
       name.innerHTML = json["id"];
+      adapter.innerHTML = json["adapter"];
+      adapterProtocol.innerHTML = json["adapterProtocol"];
       hostName.innerHTML = json["hostName"];
       NetworkName.innerHTML = json["networkName"];
       pubIP.innerHTML = json["privateIpv4"];
@@ -51,6 +59,7 @@ async function Refresh() {
       ramUsage.innerHTML = json["memory"] + '%';
       upTime.innerHTML = json["upTime"] + ' days';
       timeStamp.innerHTML = json["time"];
+
 
       let clients = document.getElementById("clients");
 
@@ -63,7 +72,7 @@ async function Refresh() {
       let cards = document.getElementsByClassName("clientCard");
       for (let i = 0; i < cards.length; i++) {
          const card = cards[i];
-         if (card.children[1].previousSibling.previousSibling.children[1].children[0].innerHTML == id) {
+         if (card.children[1].previousSibling.previousSibling.children[0].children[1].innerHTML == id) {
             return card;
          }
       }

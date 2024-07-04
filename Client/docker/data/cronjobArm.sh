@@ -1,5 +1,8 @@
 #!/bin/bash
 
+/endPointQuery.sh
+
+
 #get host name
 hostName=$(hostname)
 #echo $hostName
@@ -7,7 +10,7 @@ hostName=$(hostname)
 # get id from id file
 #id=$hostName
 
-id=$(cat id.txt)
+id=$(cat /data/id)
 
 echo $id
 
@@ -45,23 +48,19 @@ echo $response
 newId=$(echo $response | grep 'id' | cut -d'=' -f2)
 echo $newId
 
-
 if [ $newId != 'known' ]
 then
-  echo $newId > id.txt
+  echo $newId > /data/id
 fi
 
 
-# if [ $1 -eq 59 ]
-# then
-#   exit 0
-# fi
+if [ $1 -eq 59 ]
+then
+  exit 0
+fi
 
-# echo "Script called. Count: $1"
+echo "Script called. Count: $1"
 
-# sleep 1
+sleep 1
 
-# /home/yelloelefant/Coding/WatsUpG/Client/docker/data/cronjobTTT.sh $(( $1 + 1 ))
-
-#checks if variable is empty
-#[[ ! -z "$TERM" ]] && echo "Not empty" || echo "Empty"
+/cronjob.sh $(( $1 + 1 ))
