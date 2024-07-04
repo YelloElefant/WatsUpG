@@ -3,8 +3,8 @@ async function AddClients() {
    //console.log(cardTemplate);
    //get all ids to refresh
    let ids;
-   if (window.location.host == "192.168.1.34:2525") {
-      ids = await fetch("http://192.168.1.34:2525/KnownClientsData.php", { mode: 'no-cors' }).then(response => response.text());
+   if (window.location.host == "192.168.1.29:2525") {
+      ids = await fetch("http://192.168.1.29:2525/KnownClientsData.php", { mode: 'no-cors' }).then(response => response.text());
    }
    else {
       ids = await fetch("https://watsupg.yelloelefant.com/KnownClientsData.php", { mode: 'no-cors' }).then(response => response.text());
@@ -21,8 +21,8 @@ async function AddClients() {
       }
 
       let data;
-      if (window.location.host == "192.168.1.34:2525") {
-         data = await fetch("http://192.168.1.34:2525/SendData.php?id=" + id, { mode: 'no-cors' }).then(response => response.text());
+      if (window.location.host == "192.168.1.29:2525") {
+         data = await fetch("http://192.168.1.29:2525/SendData.php?id=" + id, { mode: 'no-cors' }).then(response => response.text());
       }
       else {
          data = await fetch("https://watsupg.yelloelefant.com/SendData.php?id=" + id, { mode: 'no-cors' }).then(response => response.text());
