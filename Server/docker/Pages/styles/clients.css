@@ -1,0 +1,70 @@
+
+
+
+.tableWrapper {
+   display: flex;
+   flex-direction: column;
+   justify-content: flex-start;
+   width: 100%;
+   padding: 0 0 50px 0;
+   border: solid thin var(--secondary-border-color);
+   border-radius: 10px;
+   margin-bottom: 15px;
+}
+
+#clientTableHeading {
+   font-size: larger;
+   height: 50px;
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   padding: 0 5px 0 5px;
+}
+
+table {
+   border-collapse: collapse;
+   width: 100%;
+   
+}
+
+#clientsList {
+   border-collapse: collapse;
+   width: 100%;
+}
+
+thead {
+   border-radius: 10px;
+   text-align: left;
+}
+
+thead tr {
+   background-color: var(--secondary-bg-color);
+}
+
+tbody tr{
+   border-bottom: solid thin var(--secondary-border-color);
+
+}
+
+
+td:last-child, th:last-child {
+   text-align: right;
+}
+
+
+
+table * {
+   padding: 5px;
+}
+
+
+
+.clientRow {
+   margin: 5px;
+}
+
+.clientRow:hover {
+   background-color: var(--secondary-bg-color);
+   cursor: pointer;
+
+}
