@@ -23,8 +23,17 @@ defaultAdapterProtocol=$(lshw -class network | awk '/description/ {via_line=$0} 
 echo $id
 
 
+
+
 #get network name
-networkName='Trotter'
+networkName='None'
+# get the ip of the router in curretn subenet
+routerIp=$(ip route | grep default | cut -d' ' -f3)
+# reverse dns lookup with dig command and check if it is not empty
+if [ ! -z $(dig -x $routerIp +short) ]
+then
+  networkName=$(dig -x $routerIp +short | cut -d'.' -f1)
+fi
 #echo 'Trotter'
 
 # get private ipv4 address
@@ -50,7 +59,7 @@ currentTime=$(date +%T)
 #curl -X POST -d '{id="'"$hostName"'"&hostName="'"$hostName"'"&networkName="Trotter"&privateIpv4="'"$privateIpv4"'"&privateIpv6="'"$privateIpv6"'"&cpu="'"$cpu"'memory="'"$memory"'uptime="'"$upTime"'"&token="'"123456789"'"}' http://192.168.1.34:2525/ReciveData.php
 #echo 'time='$currentTime'&token=123456789&id='$hostName'&hostName='$hostName'&networkName=testing&privateIpv4='$privateIpv4'&privateIpv6='$privateIpv6'&cpu='$cpu'&memory='$memory'&upTime='$upTime'' http://192.168.1.34:2525/ReciveData.php > hello.txt
 #echo updated
-response=$(curl -X POST -d 'time='$currentTime'&token=123456789&id='$id'&hostName='$hostName'&networkName=testing&privateIpv4='$privateIpv4'&privateIpv6='$privateIpv6'&cpu='$cpu'&memory='$memory'&upTime='$upTime'&adapter='$defaultAdapter'&adapterProtocol='$defaultAdapterProtocol'' http://$serverPath:2525/ReciveData.php)
+response=$(curl -X POST -d 'time='$currentTime'&token=123456789&id='$id'&hostName='$hostName'&networkName='$networkName'&privateIpv4='$privateIpv4'&privateIpv6='$privateIpv6'&cpu='$cpu'&memory='$memory'&upTime='$upTime'&adapter='$defaultAdapter'&adapterProtocol='$defaultAdapterProtocol'' http://$serverPath:2525/ReciveData.php)
 
 echo $response 
 newId=$(echo $response | grep 'id' | cut -d'=' -f2)

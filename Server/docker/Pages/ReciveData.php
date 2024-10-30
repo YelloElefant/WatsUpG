@@ -1,5 +1,5 @@
-<!-- this is the php file that is used to recive data from the clients and store it in the redis database -->
 <?php
+//this is the php file that is used to recive data from the clients and store it in the redis database 
 $redis = new Redis();
 $redis->connect('redisStack', 6379);
 $runner = fopen("./idStuff/runner", "r") or die("Unable to open file!");

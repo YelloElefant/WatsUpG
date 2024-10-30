@@ -1,5 +1,5 @@
-<!-- this endpoint returns the data of a given ID -->
 <?php
+// <!-- this endpoint returns the data of a given ID -->
 $id = $_GET['id'];
 
 $redis = new Redis();
