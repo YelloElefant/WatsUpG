@@ -1,3 +1,4 @@
+<!-- this endpoint returns the data of a given ID -->
 <?php
 $id = $_GET['id'];
 

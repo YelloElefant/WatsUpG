@@ -1,3 +1,4 @@
+<!-- this file is used to get all the registered clients from the redis database -->
 <?php
 //returns alll members of a redis set called knownClients
 $redis = new Redis();
