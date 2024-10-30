@@ -89,7 +89,7 @@ $redis->connect('redisStack', 6379);
                      <th>Client Name</th>
                      <th>Host Name</th>
                      <th>Private IPv4</th>
-                     <th>Adoption Status</th>
+                     <th>Status</th>
                   </tr>
                </thead>
                <tbody>
@@ -102,7 +102,7 @@ $redis->connect('redisStack', 6379);
                      <td class="clientName"><?php echo $data['id']; ?></td>
                      <td class="hostName"><?php echo $data['hostName']; ?></td>
                      <td class="ipv4"><?php echo $data['privateIpv4']?></td>
-                     <td class="adoption">adopted</td>
+                     <td class="status"><?php echo "up"?></td>
                   </tr>
                   <?php
                   }
