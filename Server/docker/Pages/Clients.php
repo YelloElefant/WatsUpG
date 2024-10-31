@@ -86,6 +86,10 @@ $redis->connect('redisStack', 6379);
             <table id="clientsList">
                <thead>
                   <tr>
+                  <!-- selection -->
+                     <th>
+                        <input type="checkbox" id="selectAllCheckbox">
+                     </th>
                      <th>Client Name</th>
                      <th>Host Name</th>
                      <th>Private IPv4</th>
@@ -99,6 +103,9 @@ $redis->connect('redisStack', 6379);
                      $data = json_decode($redis->get($id), true);
                   ?>
                   <tr class="clientRow">
+                     <td class="selectCell clientSelect">
+                        <input type="checkbox" class="clientSelectCheckbox">
+                     </td>
                      <td class="clientName"><?php echo $data['id']; ?></td>
                      <td class="hostName"><?php echo $data['hostName']; ?></td>
                      <td class="ipv4"><?php echo $data['privateIpv4']?></td>

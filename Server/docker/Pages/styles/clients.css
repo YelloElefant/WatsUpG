@@ -68,3 +68,17 @@ table * {
    cursor: pointer;
 
 }
+
+#selectAllCheckbox {
+   border-radius: 5px;
+
+}
+
+.selectCell {
+   width: 5%;
+   
+} 
+
+.clientSelect {
+
+}
