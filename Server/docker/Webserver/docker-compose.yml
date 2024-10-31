@@ -10,6 +10,7 @@ services:
       - internal
     volumes:
       - ../Pages/:/var/www/html/
+      - ../../Api:/var/www/html/Api
       - /logs/nginx:/var/log/nginx/+
     restart: unless-stopped
   php:
@@ -22,6 +23,7 @@ services:
       - redisStack
     volumes:
       - ../Pages/:/var/www/html
+      - ../../Api:/var/www/html/Api
     restart: unless-stopped
     environment:
       - TOKEN=123456789

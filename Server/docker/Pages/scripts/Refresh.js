@@ -1,6 +1,6 @@
 async function Refresh() {
    let cardTemplate = document.getElementById("clientCardTemp").children[0];
-   //console.log(cardTemplate);
+   console.log(cardTemplate);
    //get all ids to refresh
    let ids;
    if (window.location.host == "192.168.1.29:2525") {
@@ -22,10 +22,10 @@ async function Refresh() {
 
       let data;
       if (window.location.host == "192.168.1.29:2525") {
-         data = await fetch("http://192.168.1.29:2525/SendData.php?id=" + id, { mode: 'no-cors' }).then(response => response.text());
+         data = await fetch("http://192.168.1.29:2525/Api/GetClientDataById.php?id=" + id, { mode: 'no-cors' }).then(response => response.text());
       }
       else {
-         data = await fetch("https://watsupg.yelloelefant.com/SendData.php?id=" + id, { mode: 'no-cors' }).then(response => response.text());
+         data = await fetch("https://watsupg.yelloelefant.com/Api/GetClientDataById.php?id=" + id, { mode: 'no-cors' }).then(response => response.text());
       }
 
       let cardInfo = card.children[1];
