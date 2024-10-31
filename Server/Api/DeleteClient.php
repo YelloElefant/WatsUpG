@@ -10,3 +10,4 @@ $redis->del($id);
 
 $redis->sRem('usedIds', $id);
 $redis->sAdd('avalibleIds', $id);
+echo "deleted " . $id;

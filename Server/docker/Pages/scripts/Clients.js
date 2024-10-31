@@ -1,60 +1,21 @@
-async function AddClients() {
-   let cardTemplate = document.getElementById("clientCardTemp").children[0];
-   //console.log(cardTemplate);
-   //get all ids to refresh
-   let ids;
-   if (window.location.host == "192.168.1.29:2525") {
-      ids = await fetch("http://192.168.1.29:2525/KnownClientsData.php", { mode: 'no-cors' }).then(response => response.text());
-   }
-   else {
-      ids = await fetch("https://watsupg.yelloelefant.com/KnownClientsData.php", { mode: 'no-cors' }).then(response => response.text());
-   }
-   ids = JSON.parse(ids);
-   for (let i = 0; i < ids.length; i++) {
-      const id = ids[i];
-      let makeNew = false;
+function deleteClient() {
 
-      let card = checkForCard(id);
-      if (card === -1) {
-         makeNew = true;
-         card = cardTemplate.cloneNode(true);
-      }
+   let clientsList = document.getElementById("clientsList");
+   let listOfClientsElements = clientsList.getElementsByClassName("clientRow");
 
-      let data;
-      if (window.location.host == "192.168.1.29:2525") {
-         data = await fetch("http://192.168.1.29:2525/Api/GetClientDataById.php?id=" + id, { mode: 'no-cors' }).then(response => response.text());
-      }
-      else {
-         data = await fetch("https://watsupg.yelloelefant.com/Api/GetClientDataById.php?id=" + id, { mode: 'no-cors' }).then(response => response.text());
-      }
+   let clientsSelectionBox = clientsList.getElementsByTagName("input");
 
-      let cardInfo = card.children[1];
-      let name = cardInfo.previousSibling.previousSibling.children[1].children[0];
-      let hostName = cardInfo.children[0].children[1];
-      let json = JSON.parse(data);
-      //console.log(json);
-      name.innerHTML = json["id"];
-      card.id = json["id"];
-      hostName.innerHTML = json["hostName"];
+   let clientsSelected = [];
+   for (let i = 1; i < clientsSelectionBox.length; i++) {
+      if (clientsSelectionBox[i].checked) {
+         clientsSelected.push(listOfClientsElements[i - 1].getElementsByClassName("clientName")[0].innerHTML);
 
-      let clientsList = document.getElementById("clientsList");
-
-      if (makeNew == true) {
-         clientsList.appendChild(card);
       }
    }
 
-   function checkForCard(id) {
-      let cards = document.getElementsByClassName("clientCard");
-      for (let i = 0; i < cards.length; i++) {
-         const card = cards[i];
-         if (card.children[1].previousSibling.previousSibling.children[1].children[0].innerHTML == id) {
-            return card;
-         }
-      }
-      return -1;
-   }
-
+   clientsSelected.forEach(async (client) => {
+      let response = await fetch("http://192.168.1.29:2525/Api/DeleteClient.php?id=" + client, { mode: 'no-cors' }).then(response => response.text())
+      console.log(response);
+      listOfClientsElements[client].remove();
+   });
 }
-
-AddClients();

@@ -83,6 +83,7 @@ $redis->connect('redisStack', 6379);
       <div id="contentRight">
          <div id="clientsWrapper" class="tableWrapper">
             <div id="clientTableHeading">Client List</div>
+            <button onClick="deleteClient()">delete</button>
             <table id="clientsList">
                <thead>
                   <tr>
@@ -102,7 +103,7 @@ $redis->connect('redisStack', 6379);
                   foreach ($ids as $id) {
                      $data = json_decode($redis->get($id), true);
                   ?>
-                  <tr class="clientRow">
+                  <tr class="clientRow" id="<?php echo $data['id']; ?>">
                      <td class="selectCell clientSelect">
                         <input type="checkbox" class="clientSelectCheckbox">
                      </td>
@@ -125,8 +126,8 @@ $redis->connect('redisStack', 6379);
 
    </div>
    <script src="./scripts/index.js"></script>
+   <script src="./scripts/Clients.js"></script>
 </body>
-<!-- <script src="./scripts/Clients.js"></script> -->
 
 
 </html>

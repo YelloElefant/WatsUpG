@@ -82,3 +82,15 @@ table * {
 .clientSelect {
 
 }
+
+button {
+   border: none;
+   background-color: var(--secondary-bg-color);
+   color: var(--secondary-text-color);
+   padding: 5px;
+   border-radius: 5px;
+   margin: 5px;
+   cursor: pointer;
+   height: 50px;
+   width: 50px;
+}
