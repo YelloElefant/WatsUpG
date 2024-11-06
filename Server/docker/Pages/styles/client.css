@@ -1,0 +1,50 @@
+#infoWrapper {
+   display: flex;
+   flex-direction: column;
+   justify-content: flex-start;
+}
+
+.infoBlock {
+   border: solid thin var(--border-color);
+   margin-top: 5px;
+   /* padding: 5px; */
+}
+
+.infoBlock:first-child {
+   margin-top: 0;
+}
+
+.infoBlock * {
+   padding: 5px;
+}
+
+.infoBlock h2 {
+   font-size: large;
+   margin: 0;
+}
+
+
+.infoBlock h3 {
+   margin: 0;
+   font-size: medium;
+}
+
+.attrabutes {
+   display: flex;
+   flex-direction: column;
+   justify-content: flex-start;
+   
+   flex-wrap: wrap;
+
+   margin: 0;
+   padding: 0;
+   
+}
+
+.attrabute {
+   /* margin: 5px; */
+   padding: 5px;
+   border-top: solid thin var(--secondary-border-color);
+   /* border-radius: 5px; */
+}
+

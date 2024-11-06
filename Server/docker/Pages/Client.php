@@ -1,8 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
 <?php
 $redis = new Redis();
 $redis->connect('redisStack', 6379);
+$client = $_GET['id'];
+$clientData = $redis->get($client);
+$clientData = json_decode($clientData, true);
+
+
+// function that returns the client data from an array of data if it doesnt exist it will return "unknown"
+function getClientData($key)
+{
+   global $clientData;
+   if (array_key_exists($key, $clientData)) {
+      return $clientData[$key];
+   } else {
+      return "Unknown";
+   }
+}
+
 
 ?>
 
@@ -10,7 +24,7 @@ $redis->connect('redisStack', 6379);
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <link rel="stylesheet" href="./styles/index.css">
-   <link rel="stylesheet" href="./styles/clients.css">
+   <link rel="stylesheet" href="./styles/client.css">
    <title>Clients</title>
    <link rel="preconnect" href="https://fonts.googleapis.com">
    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -81,54 +95,69 @@ $redis->connect('redisStack', 6379);
          </div>
       </div>
       <div id="contentRight">
-         <div id="clientsWrapper" class="tableWrapper">
-            <div id="clientTableHeading">Client List</div>
-            <div id="actions">
-               <button onClick="deleteClient()" id="deleteButton">delete</button>
+         <?php 
+         
+         echo "<h1>".$clientData['id']."</h1>";
+         ?>
+         <div id="infoWrapper">  
+            <div class="infoBlock">
+               <h2>Client Information</h2>
+               <div class="attrabutes">
+                  <div class="attrabute">
+                     <h3>Client ID</h3>
+                     <p><?php echo getClientData('id'); ?></p>
+                  </div>
+                  <div class="attrabute">
+                     <h3>Client Name</h3>
+                     <p><?php echo getClientData('name'); ?></p>
+                  </div>
+                  <div class="attrabute">
+                     <h3>Client Type</h3>
+                     <p><?php echo getClientData('type'); ?></p>
+                  </div>
+                  <div class="attrabute">
+                     <h3>Client OS</h3>
+                     <p><?php echo getClientData('os'); ?></p>
+                  </div>
+               </div>
+
             </div>
-            <table id="clientsList">
-               <thead>
-                  <tr>
-                  <!-- selection -->
-                     <th>
-                        <input type="checkbox" id="selectAllCheckbox">
-                     </th>
-                     <th>Client Name</th>
-                     <th>Host Name</th>
-                     <th>Private IPv4</th>
-                     <th>Status</th>
-                  </tr>
-               </thead>
-               <tbody>
-                  <?php
-                  $ids = $redis->sMembers('usedIds');
-                  foreach ($ids as $id) {
-                     $data = json_decode($redis->get($id), true);
-                  ?>
-                  <tr class="clientRow" id="<?php echo $data['id']; ?>">
-                     <td class="selectCell clientSelect">
-                        <input type="checkbox" class="clientSelectCheckbox">
-                     </td>
-                     <td class="clientName"><?php echo $data['id']; ?></td>
-                     <td class="hostName"><?php echo $data['hostName']; ?></td>
-                     <td class="ipv4"><?php echo $data['privateIpv4']?></td>
-                     <td class="status"><?php echo "up"?></td>
-                  </tr>
-                  <?php
-                  }
-                  ?>
-                      
 
-
-
-               </tbody>
-            </table>
+            <div class="infoBlock">
+               <h2>Client Networking</h2>
+               <div class="attrabutes">
+                  <div class="attrabute">
+                     <h3>Hostname</h3>
+                     <p><?php echo getClientData('hostName'); ?></p>
+                  </div>
+                  <div class="attrabute">
+                     <h3>MAC Address</h3>
+                     <p><?php echo getClientData('macAddress'); ?></p>
+                  </div>
+                  <div class="attrabute">
+                     <h3>Current network adapter</h3>
+                     <p>Name: <?php echo getClientData('adapter'); ?></p>
+                     <p>Protocal: <?php echo getClientData('adapterProtocol'); ?></p>
+                  </div>
+                  <div class="attrabute">
+                     <h3>IPv4</h3>
+                     <p>Private: <?php echo getClientData('privateIpv4'); ?></p>
+                     <p>Public: <?php echo getClientData('publicIpv4'); ?></p>
+                  </div>
+                  <div class="attrabute">
+                     <h3>IPv6</h3>
+                     <p>Private: <?php echo getClientData('privateIpv6'); ?></p>
+                     <p>Public: <?php echo getClientData('publicIpv6'); ?></p>
+                  </div>
+               </div>
+            </div>
          </div>
+
       </div>
+
 
    </div>
    <script src="./scripts/index.js"></script>
-   <script src="./scripts/Clients.js"></script>
 </body>
 
 
