@@ -30,11 +30,15 @@
 }
 
 .attrabutes {
-   display: flex;
-   flex-direction: column;
-   justify-content: flex-start;
+
+   /* display each child in rows of 2 if the last has only 1 it takes the full width*/
+
+   display: grid;
+   grid-template-columns: 1fr 1fr;
+
    
-   flex-wrap: wrap;
+
+
 
    margin: 0;
    padding: 0;

@@ -135,11 +135,6 @@ function getClientData($key)
                      <p><?php echo getClientData('macAddress'); ?></p>
                   </div>
                   <div class="attrabute">
-                     <h3>Current network adapter</h3>
-                     <p>Name: <?php echo getClientData('adapter'); ?></p>
-                     <p>Protocal: <?php echo getClientData('adapterProtocol'); ?></p>
-                  </div>
-                  <div class="attrabute">
                      <h3>IPv4</h3>
                      <p>Private: <?php echo getClientData('privateIpv4'); ?></p>
                      <p>Public: <?php echo getClientData('publicIpv4'); ?></p>
@@ -148,6 +143,11 @@ function getClientData($key)
                      <h3>IPv6</h3>
                      <p>Private: <?php echo getClientData('privateIpv6'); ?></p>
                      <p>Public: <?php echo getClientData('publicIpv6'); ?></p>
+                  </div>
+                  <div class="attrabute">
+                     <h3>Current network adapter</h3>
+                     <p>Name: <?php echo getClientData('adapter'); ?></p>
+                     <p>Protocal: <?php echo getClientData('adapterProtocol'); ?></p>
                   </div>
                </div>
             </div>
@@ -158,6 +158,7 @@ function getClientData($key)
 
    </div>
    <script src="./scripts/index.js"></script>
+   <script src="./scripts/Client.js"></script>
 </body>
 
 
