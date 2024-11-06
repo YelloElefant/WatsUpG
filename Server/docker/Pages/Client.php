@@ -13,7 +13,7 @@ function getClientData($key)
    if (array_key_exists($key, $clientData)) {
       return $clientData[$key];
    } else {
-      return "Unknown";
+      return "<i>Unknown</i>";
    }
 }
 
@@ -135,20 +135,75 @@ function getClientData($key)
                      <p><?php echo getClientData('macAddress'); ?></p>
                   </div>
                   <div class="attrabute">
-                     <h3>IPv4</h3>
-                     <p>Private: <?php echo getClientData('privateIpv4'); ?></p>
-                     <p>Public: <?php echo getClientData('publicIpv4'); ?></p>
-                  </div>
-                  <div class="attrabute">
-                     <h3>IPv6</h3>
-                     <p>Private: <?php echo getClientData('privateIpv6'); ?></p>
-                     <p>Public: <?php echo getClientData('publicIpv6'); ?></p>
-                  </div>
-                  <div class="attrabute">
                      <h3>Current network adapter</h3>
-                     <p>Name: <?php echo getClientData('adapter'); ?></p>
-                     <p>Protocal: <?php echo getClientData('adapterProtocol'); ?></p>
-                  </div>
+                     <div class="dataContainer">
+                        <p>Name: <?php echo getClientData('adapter'); ?></p>
+                        <p>Protocal: <?php echo getClientData('adapterProtocol'); ?></p>
+                     </div>
+                     </div>
+                  <?php
+                     $ip = getClientData('ip');
+                     $data = JSON_decode($ip, true);
+                     
+                     foreach ($data as $index => $info) {
+                        // $info = array_slice($info, 0, count($info) - 1);
+                        echo "<div class='attrabute'>";
+                        echo "<h3>IP";
+                        if ($info['family'] == "inet6") {
+                           echo "v6";
+                        } else {
+                           echo "v4";
+                        }
+
+                        echo " ".$info["scope"]." </h3>";
+                        echo "<div class='dataContainer'>";
+                        foreach ($info as $key => $value) {
+                           if ($key == "dynamic") {
+                              $key = "Assignment Method";
+                              if ($value == 1) {
+                                 $value = "DHCP";
+                              } else {
+                                 $value = "Static";
+                              }
+                           }
+                           if ($key == "family") {
+                              $key = "Protocol";
+                              if ($value == "inet6") {
+                                 $value = "IPv6";
+                              } else {
+                                 $value = "IPv4";
+                              }
+                           }
+                           if ($key == "local") {
+                              $key = "Address";
+                           }
+                           if ($key == "prefixlen") {
+                              $key = "Subnet Mask";
+                              $value = "/".$value;
+                           }
+                           if ($key == "label") {
+                              $key = "Interface";
+                           }
+                           if ($key == "valid_life_time") {
+                              $key = "Lease Time";
+                           }
+                           if ($key == "preferred_life_time") {
+                              continue;
+                           }
+                           if ($key == "metric") {
+                              continue;
+                           }
+
+                           // capitalize the first letter of the key
+                           $key = ucfirst($key);
+                           echo "<p>$key: $value</p>";
+                        }
+
+
+                        echo "</div></div>";
+                     }
+                  ?>                  
+                  
                </div>
             </div>
          </div>

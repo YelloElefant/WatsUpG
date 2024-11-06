@@ -34,8 +34,30 @@ routerIp=$(ip route | grep default | cut -d' ' -f3)
 if [ ! -z $(dig -x $routerIp +short) ]; then
   clientData["networkName"]=$(dig -x $routerIp +short | cut -d'.' -f1)
 fi
-clientData["privateIpv4"]=$(ip addr show dev ${clientData["adapter"]} | grep 'inet' | xargs | cut -d' ' -f2 | cut -d'/' -f1)
-clientData["privateIpv6"]=$(ip addr show dev ${clientData["adapter"]} | grep 'inet6' | xargs | cut -d' ' -f2 | cut -d'/' -f1)
+# clientData["privateIpv4"]=$(ip addr show dev ${clientData["adapter"]} | grep 'inet' | xargs | cut -d' ' -f2 | cut -d'/' -f1)
+# clientData["privateIpv6"]=$(ip addr show dev ${clientData["adapter"]} | grep 'inet6' | xargs | cut -d' ' -f2 | cut -d'/' -f1)
+
+clientData["macAddress"]=$(ip -j addr show dev ${clientData["adapter"]} | jq -cr '.[0].address')
+
+amountOfIpAdresses=$(ip -j addr show dev ${clientData["adapter"]} | jq '.[0].addr_info | length')
+amountOfIpAdresses=${amountOfIpAdresses:-0}
+
+# Initialize an empty JSON object
+ipObject="{}"
+
+for (( i=0; i<$amountOfIpAdresses; i++ )); do
+  # Extract each object in addr_info
+  ipData=$(ip -j addr show dev ${clientData["adapter"]} | jq -c ".[0].addr_info[$i]")
+
+  # Add the object to the JSON with the index as the key
+  ipObject=$(echo "$ipObject" | jq --arg index "$i" --argjson data "$ipData" '. + {($index): $data}')
+done
+clientData["ip"]=$(echo "$ipObject" | jq -c '.')
+
+
+# get link ipv6 address
+# clientData["linkIpv6"]=$(ip -6 addr show dev ${clientData["adapter"]} | grep 'link' | xargs | cut -d' ' -f2 | cut -d'/' -f1)
+
 clientData["cpu"]=$(top -bn1 | grep load | awk '{printf "%.2f", $(NF-2)}' | sed -e 's/\ *$//g')
 clientData["memory"]=$(free | grep Mem | awk '{printf "%.2f", $3/$2 * 100.0}')
 clientData["upTime"]=$(uptime | awk '{print $3,$4}' | cut -d' ' -f1)

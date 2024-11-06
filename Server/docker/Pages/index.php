@@ -120,7 +120,7 @@
                <span class="clientInfoBoxContent">XXX.XXX.XXX.XXX</span>
             </div>
             <div class="clientInfoBox">
-               <span class="clientInfoBoxName">Priv IPv6</span>
+               <span class="clientInfoBoxName">Global IPv6</span>
                <span class="clientInfoBoxContent">XXX.XXX.XXX.XXX</span>
             </div>
             <div class="clientInfoBox">

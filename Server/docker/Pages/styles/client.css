@@ -36,13 +36,23 @@
    display: grid;
    grid-template-columns: 1fr 1fr;
 
-   
-
-
-
    margin: 0;
    padding: 0;
    
+}
+
+.attrabutes > :nth-child(even) {
+   border-left: solid thin var(--secondary-border-color);
+}
+
+
+.dataContainer {
+   display: grid;
+   grid-template-columns: 1fr 1fr;
+}
+
+.dataContainer > :nth-child(even) {
+   border-left: solid thin var(--border-color);
 }
 
 .attrabute {

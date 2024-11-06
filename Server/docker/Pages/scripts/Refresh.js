@@ -46,15 +46,19 @@ async function Refresh() {
       let upTime = cardInfo.children[6].children[1];
       let timeStamp = cardInfo.children[7].children[1];
       let json = JSON.parse(data);
-      //console.log(json);
+
+
       card.id = json["id"];
       name.innerHTML = json["id"];
       adapter.innerHTML = json["adapter"];
       adapterProtocol.innerHTML = json["adapterProtocol"];
       hostName.innerHTML = json["hostName"];
       NetworkName.innerHTML = json["networkName"];
-      pubIP.innerHTML = json["privateIpv4"];
-      privIP.innerHTML = json["privateIpv6"];
+
+      pubIP.innerHTML = JSON.parse(json["ip"])[0].local;
+      privIP.innerHTML = JSON.parse(json["ip"])[1].local;
+
+
       cpuUsage.innerHTML = json["cpu"] + '%';
       ramUsage.innerHTML = json["memory"] + '%';
       upTime.innerHTML = json["upTime"] + ' days';

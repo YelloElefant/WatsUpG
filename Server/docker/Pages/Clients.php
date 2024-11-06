@@ -111,7 +111,7 @@ $redis->connect('redisStack', 6379);
                      </td>
                      <td class="clientName"><?php echo $data['id']; ?></td>
                      <td class="hostName"><?php echo $data['hostName']; ?></td>
-                     <td class="ipv4"><?php echo $data['privateIpv4']?></td>
+                     <td class="ipv4"><?php echo json_decode($data['ip'], true)[0]["local"]?></td>
                      <td class="status"><?php echo "up"?></td>
                   </tr>
                   <?php
