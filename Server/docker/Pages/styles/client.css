@@ -32,8 +32,6 @@
 
 .attrabutes {
 
-   /* display each child in rows of 2 if the last has only 1 it takes the full width*/
-
    display: grid;
    grid-template-columns: 1fr 1fr;
 
