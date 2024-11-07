@@ -2,13 +2,7 @@ async function Refresh() {
    let cardTemplate = document.getElementById("clientCardTemp").children[0];
    // console.log(cardTemplate);
    //get all ids to refresh
-   let ids;
-   if (window.location.host == "192.168.1.29:2525") {
-      ids = await fetch("http://192.168.1.29:2525/KnownClientsData.php", { mode: 'no-cors' }).then(response => response.text());
-   }
-   else {
-      ids = await fetch("https://watsupg.yelloelefant.com/KnownClientsData.php", { mode: 'no-cors' }).then(response => response.text());
-   }
+   let ids = await fetch("http://" + window.location.host + "/KnownClientsData.php", { mode: 'no-cors' }).then(response => response.text());
    ids = JSON.parse(ids);
    for (let i = 0; i < ids.length; i++) {
       const id = ids[i];
@@ -20,53 +14,45 @@ async function Refresh() {
          card = cardTemplate.cloneNode(true);
       }
 
-      let data;
-      if (window.location.host == "192.168.1.29:2525") {
-         data = await fetch("http://192.168.1.29:2525/Api/GetClientDataById.php?id=" + id, { mode: 'no-cors' }).then(response => response.text());
-      }
-      else {
-         data = await fetch("https://watsupg.yelloelefant.com/Api/GetClientDataById.php?id=" + id, { mode: 'no-cors' }).then(response => response.text());
-      }
-
-      let cardInfo = card.children[1];
-      let cardHead = cardInfo.previousSibling.previousSibling
-
-
-      let name = cardHead.children[0].children[1];
-      let adapter = cardHead.children[1].children[0];
-      let adapterProtocol = cardHead.children[1].children[1];
-
-
-      let hostName = cardInfo.children[0].children[1];
-      let NetworkName = cardInfo.children[1].children[1];
-      let pubIP = cardInfo.children[2].children[1];
-      let privIP = cardInfo.children[3].children[1];
-      let cpuUsage = cardInfo.children[4].children[1];
-      let ramUsage = cardInfo.children[5].children[1];
-      let upTime = cardInfo.children[6].children[1];
-      let timeStamp = cardInfo.children[7].children[1];
+      let data = await fetch("http://" + window.location.host + "/Api/GetClientDataById.php?id=" + id, { mode: 'no-cors' }).then(response => response.text());
       let json = JSON.parse(data);
+      let newCardData = [
+         json["id"],
+         json["adapter"],
+         json["adapterProtocol"],
+         json["hostName"],
+         json["networkName"],
+         JSON.parse(json["ip"])[0].local,
+         JSON.parse(json["ip"])[1].local,
+         json["cpu"] + '%',
+         json["memory"] + '%',
+         json["upTime"] + ' days',
+         json["time"]
+      ];
 
 
-      card.id = json["id"];
-      name.innerHTML = json["id"];
-      adapter.innerHTML = json["adapter"];
-      adapterProtocol.innerHTML = json["adapterProtocol"];
-      hostName.innerHTML = json["hostName"];
-      NetworkName.innerHTML = json["networkName"];
+      card.id = newCardData[0];
+      newCardData.forEach((data, index) => {
+         if (index == 0) {
+            // get the name of the client
+            card.getElementsByClassName("clientName")[0].children[0].innerHTML = data;
+            return;
+         }
+         if (index == 1) {
+            card.getElementsByClassName("adapter")[0].innerHTML = data;
+            return;
+         }
+         if (index == 2) {
+            card.getElementsByClassName("adapterProtocol")[0].innerHTML = data;
+            return;
+         }
+         let cardInfoBox = card.getElementsByClassName("clientInfoBox")[index - 3];
+         cardInfoBox.children[1].innerHTML = data;
 
-      pubIP.innerHTML = JSON.parse(json["ip"])[0].local;
-      privIP.innerHTML = JSON.parse(json["ip"])[1].local;
-
-
-      cpuUsage.innerHTML = json["cpu"] + '%';
-      ramUsage.innerHTML = json["memory"] + '%';
-      upTime.innerHTML = json["upTime"] + ' days';
-      timeStamp.innerHTML = json["time"];
-
+      }
+      );
 
       let clients = document.getElementById("clients");
-
       if (makeNew == true) {
          clients.appendChild(card);
       }
@@ -76,7 +62,7 @@ async function Refresh() {
       let cards = document.getElementsByClassName("clientCard");
       for (let i = 0; i < cards.length; i++) {
          const card = cards[i];
-         if (card.children[1].previousSibling.previousSibling.children[0].children[1].innerHTML == id) {
+         if (card.id == id) {
             return card;
          }
       }
