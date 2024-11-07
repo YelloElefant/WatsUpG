@@ -57,17 +57,21 @@ table * {
    padding: 5px;
 }
 
+.clientName a:hover {
+   text-decoration: underline;
+
+}
+
+.clientName a {
+   color: var(--link-color);
+}
+
 
 
 .clientRow {
    margin: 5px;
 }
 
-.clientRow:hover {
-   background-color: var(--secondary-bg-color);
-   cursor: pointer;
-
-}
 
 #selectAllCheckbox {
    border-radius: 5px;
