@@ -83,16 +83,54 @@ table * {
 
 }
 
+.buttonWithIcon {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   cursor: pointer;
+
+}
+
 #deleteButton {
    border: none;
    background-color: #ff000063;
    color: var(--secondary-text-color);
    padding: 5px;
-   border-radius: 5px;
+   border-radius: 25px;
    margin: 5px;
-   cursor: pointer;
-   height: 50px;
-   width: 50px;
+   height: 25px;
+   width: 25px;
+}
+
+#deleteButton:hover {
+   background-color: #ff0000;
+}
+
+#deleteButton svg {
+   height: 20px;
+   width: 20px;
+
+}
+
+#refreshButton {
+   border: none;
+   background-color: #00ff0063;
+   color: var(--secondary-text-color);
+   padding: 5px;
+   border-radius: 25px;
+   margin: 5px;
+   height: 25px;
+   width: 25px;
+}
+
+#refreshButton:hover {
+   background-color: #00ff00;
+}
+
+#refreshButton svg {
+   height: 20px;
+   width: 20px;
+
 }
 
 #actions {

@@ -84,7 +84,24 @@ $redis->connect('redisStack', 6379);
          <div id="clientsWrapper" class="tableWrapper">
             <div id="clientTableHeading">Client List</div>
             <div id="actions">
-               <button onClick="deleteClient()" id="deleteButton">delete</button>
+               <button onClick="refreshClients()" id="refreshButton" class="buttonWithIcon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon" aria-hidden="true" role="img">
+                     <polyline points="23 4 23 10 17 10"></polyline>
+                     <polyline points="1 20 1 14 7 14"></polyline>
+                     <path d="M3.6 9a9 9 0 0 1 14.8 3"></path>
+                     <path d="M21.6 12a9 9 0 0 1-3 6"></path>
+                     <path d="M10.8 15a9 9 0 0 1-1.8-6"></path>
+                  </svg>
+               </button>
+               <button onClick="deleteClient()" id="deleteButton" class="buttonWithIcon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon" aria-hidden="true" role="img">
+                     <polyline points="3 6 5 6 21 6"></polyline>
+                     <path d="M6 6V21a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V6"></path>
+                     <line x1="10" y1="3" x2="10" y2="6"></line>
+                     <line x1="14" y1="3" x2="14" y2="6"></line>
+                  </svg>
+               </button>
+               
             </div>
             <table id="clientsList">
                <thead>
@@ -93,10 +110,10 @@ $redis->connect('redisStack', 6379);
                      <th>
                         <input type="checkbox" id="selectAllCheckbox">
                      </th>
-                     <th>Client Name</th>
-                     <th>Host Name</th>
-                     <th>Private IPv4</th>
-                     <th>Status</th>
+                     <th data-propertyName='id'>Client Name</th>
+                     <th data-propertyName='hostName'>Host Name</th>
+                     <th data-propertyName='ip.local'>Private IPv4</th>
+                     <th data-propertyName='null'>Status</th>
                   </tr>
                </thead>
                <tbody>
