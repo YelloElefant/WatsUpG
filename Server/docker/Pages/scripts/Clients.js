@@ -27,7 +27,7 @@ function deleteClient() {
 async function refreshClients() {
    for (let i = 0; i < listOfClientsElements.length; i++) {
       const client = listOfClientsElements[i];
-      let clientName = client.getElementsByClassName("clientName")[0].innerHTML;
+      let clientName = client.getElementsByClassName("clientName")[0].children[0].innerHTML;
       // get the heading names of the table
       let tableHeadings = document.getElementById("clientsList").getElementsByTagName("th");
       tableHeadings = Array.from(tableHeadings).map((heading) => heading.getAttribute('data-propertyName')).slice(1).filter((heading) => heading !== "null");
@@ -53,6 +53,10 @@ async function refreshClients() {
          return clientData[heading];
       }
       ).forEach((data, index) => {
+         if (index == 0) {
+            client.children[index + 1].children[0].innerHTML = data;
+            return;
+         }
          client.children[index + 1].innerHTML = data;
       });
 
