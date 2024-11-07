@@ -60,3 +60,28 @@ async function refreshClients() {
 
    }
 }
+
+// function to handle search bar
+function searchClients() {
+   let searchInput = document.getElementById("searchBar").value;
+   let clientsList = document.getElementById("clientsList");
+   let clients = clientsList.getElementsByClassName("clientRow");
+   for (let i = 0; i < clients.length; i++) {
+      let client = clients[i];
+      for (let j = 1; j < client.children.length; j++) {
+         let clientData = client.children[j].innerHTML;
+         if (clientData.toLowerCase().includes(searchInput.toLowerCase())) {
+            client.style.display = "";
+            break;
+         } else {
+            client.style.display = "none";
+         }
+      }
+   }
+}
+
+function clearSearch() {
+   let searchInput = document.getElementById("searchBar");
+   searchInput.value = "";
+   searchClients();
+}
