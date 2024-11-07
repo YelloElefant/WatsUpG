@@ -12,7 +12,7 @@ $ids = $redis->sMembers('usedIds');
 $clients = array();
 foreach ($ids as $id) {
    $data = json_decode($redis->get($id), true);
-   if (strtolower($data[$key]) != $value) {
+   if ($data[$key] != $value) {
       continue;
    }
    array_push($clients, $data);
