@@ -59,23 +59,20 @@ async function refreshClients() {
 
       let wants = tableHeadings.map((heading) => "&want[]=" + heading).join("");
 
-      let response = await fetch("http://192.168.1.29:2525/Api/GetClientDataById.php?id=" + clientName + wants, { mode: 'no-cors' }).then(response => response.text())
-      let clientData = JSON.parse(response);
-      let newClientData = [];
+      let clientData = JSON.parse(await fetch("http://192.168.1.29:2525/Api/GetClientDataById.php?id=" + clientName + wants, { mode: 'no-cors' })
+         .then(response => response.text()));
 
-      tableHeadings.forEach((heading, index) => {
+
+      tableHeadings.map((heading) => {
          for (let i = 0; i < deeperValues.length; i++) {
             if (deeperValues[i][0] == heading) {
                clientData[heading] = JSON.parse(clientData[heading])[0][deeperValues[i][1]];
                break;
             }
          }
-
-
-         newClientData.push(clientData[heading]);
+         return clientData[heading];
       }
-      );
-      newClientData.forEach((data, index) => {
+      ).forEach((data, index) => {
          client.children[index + 1].innerHTML = data;
       });
 
