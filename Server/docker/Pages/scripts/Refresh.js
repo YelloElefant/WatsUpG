@@ -2,7 +2,8 @@ async function Refresh() {
    let cardTemplate = document.getElementById("clientCardTemp").children[0];
    // console.log(cardTemplate);
    //get all ids to refresh
-   let ids = await fetch("http://" + window.location.host + "/KnownClientsData.php", { mode: 'no-cors' }).then(response => response.text());
+
+   let ids = await fetch("./KnownClientsData.php", { mode: 'no-cors' }).then(response => response.text());
    ids = JSON.parse(ids);
    for (let i = 0; i < ids.length; i++) {
       const id = ids[i];
@@ -14,7 +15,7 @@ async function Refresh() {
          card = cardTemplate.cloneNode(true);
       }
 
-      let data = await fetch("http://" + window.location.host + "/Api/GetClientDataById.php?id=" + id, { mode: 'no-cors' }).then(response => response.text());
+      let data = await fetch("./Api/GetClientDataById.php?id=" + id, { mode: 'no-cors' }).then(response => response.text());
       let json = JSON.parse(data);
       let newCardData = [
          json["id"],
