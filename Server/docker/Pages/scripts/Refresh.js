@@ -17,15 +17,14 @@ async function Refresh() {
 
       let data = await fetch("./Api/GetClientDataById.php?id=" + id, { mode: 'no-cors' }).then(response => response.text());
       let json = JSON.parse(data);
-      console.log(json);
       let newCardData = [
          json["id"],
          json["adapter"],
          json["adapterProtocol"],
          json["hostName"],
          json["networkName"],
-         JSON.parse(json["ip"])[0].local,
-         JSON.parse(json["ip"])[1].local,
+         json["ip"][0].addr_info[0].local,
+         json["ip"][0].addr_info[1].local,
          json["cpu"] + '%',
          json["memory"] + '%',
          json["upTime"] + ' days',
