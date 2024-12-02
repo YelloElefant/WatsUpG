@@ -4,14 +4,22 @@
 construct_data() {
   local data=""
   
-  # Add additional data types here
+  json="{"
   for key in "${!clientData[@]}"; do
-    data+="&$key=${clientData[$key]}"
+    value="${clientData[$key]}"
+    # Check if the value is already JSON (avoid double quoting)
+    if [[ "$key" == "ip" ]]; then
+      json+="\"$key\": $value,"
+    else
+      json+="\"$key\": \"$(echo "$value" | sed 's/"/\\"/g')\","
+    fi
   done
 
-  # remove the first character
-  data=${data:1}
-  echo "$data"
+  # Remove the trailing comma and close the JSON object
+  json="${json%,}}"
+
+  # Output the JSON
+  echo "json=$json&token=123456789&id=${clientData["id"]}"
 }
 
 # echo $1
@@ -42,17 +50,8 @@ clientData["macAddress"]=$(ip -j addr show dev ${clientData["adapter"]} | jq -cr
 amountOfIpAdresses=$(ip -j addr show dev ${clientData["adapter"]} | jq '.[0].addr_info | length')
 amountOfIpAdresses=${amountOfIpAdresses:-0}
 
-# Initialize an empty JSON object
-ipObject="{}"
 
-for (( i=0; i<$amountOfIpAdresses; i++ )); do
-  # Extract each object in addr_info
-  ipData=$(ip -j addr show dev ${clientData["adapter"]} | jq -c ".[0].addr_info[$i]")
-
-  # Add the object to the JSON with the index as the key
-  ipObject=$(echo "$ipObject" | jq --arg index "$i" --argjson data "$ipData" '. + {($index): $data}')
-done
-clientData["ip"]=$(echo "$ipObject" | jq -c '.')
+clientData["ip"]=$(ip -j addr show dev ${clientData["adapter"]})
 
 
 # get link ipv6 address
@@ -65,7 +64,7 @@ clientData["currentTime"]=$(date +%T)
 clientData["os"]=$(cat /etc/os-release | grep 'PRETTY_NAME' | cut -d'=' -f2 | sed 's/"//g' | cut -d' ' -f1)
 clientData["diskUsage"]=$(df -h | grep '/dev/sda1' | awk '{print $5}')
 clientData["osVersion"]=$(cat /etc/os-release | grep 'PRETTY_NAME' | cut -d'=' -f2 | sed 's/"//g' | cut -d' ' -f2)
-clientData["token"]=123456789
+# clientData["token"]=123456789
 clientData["type"]="client"
 clientData["time"]=$(date +%T)
 

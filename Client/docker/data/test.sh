@@ -1,21 +1,32 @@
 #!/bin/bash
-amountOfIpAdresses=$(ip -j addr show dev enp4s0 | jq '.[0].addr_info | length')
-amountOfIpAdresses=${amountOfIpAdresses:-0}
 
-# Initialize an empty JSON object
-ipObject="{}"
+# Declare an associative array
+declare -A clientData
+clientData=(
+  ["type"]="client"
+  ["macAddress"]="d8:50:e6:04:6f:8d"
+  ["networkName"]="BigPPRouter"
+  ["id"]="City"
+)
 
-for (( i=0; i<$amountOfIpAdresses; i++ )); do
-  # Extract each object in addr_info
-  ipData=$(ip -j addr show dev enp4s0 | jq -c ".[0].addr_info[$i]")
+# Add a JSON string (e.g., from `ip -j addr`) to the array
+ip_output=$(ip -j addr) # Simulating a command output
+clientData["ip"]="$ip_output"
 
-  # Add the object to the JSON with the index as the key
-  ipObject=$(echo "$ipObject" | jq --arg index "$i" --argjson data "$ipData" '. + {($index): $data}')
+# Construct the JSON dynamically
+json="{"
+for key in "${!clientData[@]}"; do
+  value="${clientData[$key]}"
+  # Check if the value is already JSON (avoid double quoting)
+  if [[ "$key" == "ip" ]]; then
+    json+="\"$key\": $value,"
+  else
+    json+="\"$key\": \"$(echo "$value" | sed 's/"/\\"/g')\","
+  fi
 done
 
-# Wrap the result in an outer "ip" key
+# Remove the trailing comma and close the JSON object
+json="${json%,}}"
 
-#  remove the first and last character of the string
-
-ipObject=$(echo "$ipObject" | jq -c '.')
-echo "$ipObject" 
+# Output the JSON
+echo "$json"

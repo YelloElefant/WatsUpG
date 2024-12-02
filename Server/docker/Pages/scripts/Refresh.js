@@ -17,6 +17,7 @@ async function Refresh() {
 
       let data = await fetch("./Api/GetClientDataById.php?id=" + id, { mode: 'no-cors' }).then(response => response.text());
       let json = JSON.parse(data);
+      console.log(json);
       let newCardData = [
          json["id"],
          json["adapter"],
@@ -72,5 +73,6 @@ async function Refresh() {
 
 }
 
-Refresh();
+// Refresh();
 setInterval(Refresh, 500)
+

@@ -55,7 +55,6 @@ if ($runnerNumber == 0) {
    $runner = fopen("./idStuff/runner", "w") or die("Unable to open file!");
    fwrite($runner, "1");
 }
-$hostName = $_POST['hostName'];
 $token = $_POST['token'];
 //echo $token;
 $id = $_POST['id'];
@@ -63,9 +62,7 @@ $id = $_POST['id'];
 if ($token == getenv('TOKEN')) {
    # code...
 
-   $data = $_POST;
-   unset($data['token']);
-   $data = json_encode($data);
+   $data = $_POST['json'];
 
 
 
