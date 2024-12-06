@@ -12,9 +12,13 @@ RUN apt-get install -y jq
 
 ADD ./data/cronjob.sh /cronjob.sh
 ADD ./data/endPointQuery.sh /endPointQuery.sh
+ADD ./startup.sh /startup.sh
+ADD ./service/daemon.sh /daemon.sh
 
 RUN chmod a+x /cronjob.sh
 RUN chmod a+x /endPointQuery.sh
+RUN chmod a+x /startup.sh
+RUN chmod a+x /daemon.sh
 
 RUN crontab -l | { cat; echo "* * * * * /cronjob.sh > /proc/1/fd/1 2>/proc/1/fd/2"; } | crontab -
 
@@ -24,4 +28,4 @@ RUN mkdir /data
 RUN touch /data/id
 RUN touch /data/serverPath
 
-CMD ["cron", "-f"]
+CMD ["./startup.sh"]

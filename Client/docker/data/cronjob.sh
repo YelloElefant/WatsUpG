@@ -83,13 +83,3 @@ echo $newId
 if [ $newId != 'known' ]; then
   echo $newId > /data/id
 fi
-
-if [ $1 -eq 59 ]; then
-  exit 0
-fi
-
-echo "Script called. Count: $1"
-
-sleep 1
-
-/cronjob.sh $(( $1 + 1 ))
