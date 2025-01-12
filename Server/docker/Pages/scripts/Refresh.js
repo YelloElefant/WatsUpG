@@ -53,6 +53,16 @@ async function Refresh() {
       }
       );
 
+      let status = card.getElementsByClassName("status")[0].children[0];
+      if (json["status"] == "up") {
+         status.setAttribute("fill", "green");
+         status.setAttribute("stroke", "green");
+      } else {
+         status.setAttribute("fill", "red");
+         status.setAttribute("stroke", "red");
+      }
+
+
       let clients = document.getElementById("clients");
       if (makeNew == true) {
          clients.appendChild(card);

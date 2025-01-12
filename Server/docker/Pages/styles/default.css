@@ -9,6 +9,7 @@
    align-items: center;
    justify-content: flex-start;
    margin: 16px 0 16px 0;
+   position: relative;
 }
 
 .clientHead {
@@ -99,4 +100,22 @@
 
    width: 100%;
    padding-top: 5px;
+}
+
+.status {
+   position: absolute;
+   display: inline;
+   right: 0;
+   top: 0;
+   margin: 5px;
+
+   height: 10px;
+   width: 10px;
+}
+
+.status svg {
+   height: 10px;
+   width: 10px;
+   display: block;
+
 }
