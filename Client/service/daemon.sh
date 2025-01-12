@@ -1,5 +1,8 @@
 #!/bin/bash
 while true; do
-   /cronjob.sh 
-   sleep 1
+   /endPointQuery.sh
+   for i in {1..5}; do
+      /cronjob.sh
+      sleep 1
+   done
 done

@@ -10,3 +10,7 @@
 - [ ] /api/GetSetting
 - [ ] /api/ChangeSetting
 - [ ] /api/GetAllSettings
+
+## Notes
+* docker build command 
+`docker build -t yelloelefant/watsupg .`
