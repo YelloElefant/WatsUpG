@@ -1,0 +1,82 @@
+{
+   "type": "client",
+   "macAddress": "2c:cf:67:a8:88:f1",
+   "networkName": "BigPPRouter",
+   "id": "NSX",
+   "ip": [
+      {
+         "ifindex": 3,
+         "ifname": "wlan0",
+         "flags": [
+            "BROADCAST",
+            "MULTICAST",
+            "UP",
+            "LOWER_UP"
+         ],
+         "mtu": 1500,
+         "qdisc": "pfifo_fast",
+         "operstate": "UP",
+         "group": "default",
+         "txqlen": 1000,
+         "link_type": "ether",
+         "address": "2c:cf:67:a8:88:f1",
+         "broadcast": "ff:ff:ff:ff:ff:ff",
+         "addr_info": [
+            {
+               "family": "inet",
+               "local": "192.168.1.170",
+               "prefixlen": 24,
+               "broadcast": "192.168.1.255",
+               "scope": "global",
+               "dynamic": true,
+               "noprefixroute": true,
+               "label": "wlan0",
+               "valid_life_time": 4239,
+               "preferred_life_time": 4239
+            },
+            {
+               "family": "inet6",
+               "local": "2407:7000:90d8:6f00:2823:f62b:c5b7:d8c3",
+               "prefixlen": 128,
+               "scope": "global",
+               "dynamic": true,
+               "noprefixroute": true,
+               "valid_life_time": 4241,
+               "preferred_life_time": 1541
+            },
+            {
+               "family": "inet6",
+               "local": "2407:7000:90d8:6f00:65fd:c013:3e72:ff5a",
+               "prefixlen": 64,
+               "scope": "global",
+               "dynamic": true,
+               "noprefixroute": true,
+               "valid_life_time": 86400,
+               "preferred_life_time": 14400
+            },
+            {
+               "family": "inet6",
+               "local": "fe80::c019:3516:e862:c420",
+               "prefixlen": 64,
+               "scope": "link",
+               "noprefixroute": true,
+               "valid_life_time": 4294967295,
+               "preferred_life_time": 4294967295
+            }
+         ]
+      }
+   ],
+   "hostName": "bigPPpi5",
+   "adapter": "wlan0",
+   "cpu": "0.14",
+   "memory": "3.53",
+   "adapterProtocol": "Wireless",
+   "time": "03:26:52",
+   "logicalName": "mmc1:0001:1",
+   "serverPath": "192.168.1.29",
+   "currentTime": "03:26:52",
+   "upTime": "49",
+   "osVersion": "24.04.1",
+   "os": "Ubuntu",
+   "diskUsage": ""
+}

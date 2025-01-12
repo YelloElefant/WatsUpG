@@ -3,7 +3,7 @@
 # Function to dynamically add new data types
 construct_data() {
   local data=""
-  
+
   json="{"
   for key in "${!clientData[@]}"; do
     value="${clientData[$key]}"
@@ -50,9 +50,7 @@ clientData["macAddress"]=$(ip -j addr show dev ${clientData["adapter"]} | jq -cr
 amountOfIpAdresses=$(ip -j addr show dev ${clientData["adapter"]} | jq '.[0].addr_info | length')
 amountOfIpAdresses=${amountOfIpAdresses:-0}
 
-
 clientData["ip"]=$(ip -j addr show dev ${clientData["adapter"]})
-
 
 # get link ipv6 address
 # clientData["linkIpv6"]=$(ip -6 addr show dev ${clientData["adapter"]} | grep 'link' | xargs | cut -d' ' -f2 | cut -d'/' -f1)
@@ -66,6 +64,7 @@ clientData["diskUsage"]=$(df -h | grep '/dev/sda1' | awk '{print $5}')
 clientData["osVersion"]=$(cat /etc/os-release | grep 'PRETTY_NAME' | cut -d'=' -f2 | sed 's/"//g' | cut -d' ' -f2)
 # clientData["token"]=123456789
 clientData["type"]="client"
+clientData["status"]="up"
 clientData["time"]=$(date +%T)
 
 # Construct data string
@@ -76,10 +75,10 @@ response=$(curl -X POST -d "$data" http://${clientData["serverPath"]}:2525/Api/P
 
 echo $data
 
-echo $response 
+echo $response
 newId=$(echo $response | grep 'id' | cut -d'=' -f2)
 echo $newId
 
 if [ $newId != 'known' ]; then
-  echo $newId > /data/id
+  echo $newId >/data/id
 fi

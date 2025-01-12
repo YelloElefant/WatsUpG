@@ -5,7 +5,7 @@ currentPath = currentPath.split("/");
 
 
 currentPath = currentPath[currentPath.length - 1];
-if (currentPath == "index.html" || currentPath == "" || currentPath == "index" || currentPath == "/") {
+if (currentPath == "index.html" || currentPath == "" || currentPath == "index" || currentPath == "/" || currentPath == "index.php") {
    currentPath = "dashboard"
 } else {
 
