@@ -78,5 +78,6 @@
    "upTime": "49",
    "osVersion": "24.04.1",
    "os": "Ubuntu",
-   "diskUsage": ""
+   "diskUsage": "",
+   "status": "up"
 }
