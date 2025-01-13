@@ -94,9 +94,12 @@
             </div>
          </div>
       </div>
+      <div id="notificationWrapper">
+      </div>
    </div>
    <script src="./scripts/index.js"></script>
    <script src="./scripts/Refresh.js"></script>
+   <script src="./scripts/Notification.js"></script>
 
    <div style="display: none;" id="clientCardTemp">
       <div class="clientCard">
