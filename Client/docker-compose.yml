@@ -3,6 +3,7 @@ services:
   watsupg:
     image: yelloelefant/watsupg
     container_name: watsupg-client
+    privileged: true
     environment:
       - serverPrivateIp=192.168.1.29
       - serverDomainName=watsupg.yelloelefant.com
@@ -10,4 +11,7 @@ services:
     network_mode: host
     volumes:
       - ./clientData:/data
+      - /sys:/sys:ro
+      - /proc:/proc:ro
+      - /dev:/dev:ro
     restart: unless-stopped
