@@ -62,7 +62,7 @@ clientData["currentTime"]=$(date +%T)
 clientData["os"]=$(cat /etc/os-release | grep 'PRETTY_NAME' | cut -d'=' -f2 | sed 's/"//g' | cut -d' ' -f1)
 clientData["diskUsage"]=$(df -h | grep '/dev/sda1' | awk '{print $5}')
 clientData["osVersion"]=$(cat /etc/os-release | grep 'PRETTY_NAME' | cut -d'=' -f2 | sed 's/"//g' | cut -d' ' -f2)
-clientData["lshw"]=$(lshw -json)
+clientData["lshw"]=$(/lshw.sh)
 # clientData["token"]=123456789
 clientData["type"]="client"
 clientData["status"]="up"

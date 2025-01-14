@@ -13,13 +13,16 @@ RUN apt-get install -y lshw
 
 ADD ./data/cronjob.sh /cronjob.sh
 ADD ./data/endPointQuery.sh /endPointQuery.sh
+ADD ./data/lshw.sh /lshw.sh
 ADD ./startup.sh /startup.sh
 ADD ./service/daemon.sh /daemon.sh
+
 
 RUN chmod a+x /cronjob.sh
 RUN chmod a+x /endPointQuery.sh
 RUN chmod a+x /startup.sh
 RUN chmod a+x /daemon.sh
+RUN chmod a+x /lshw.sh
 
 RUN crontab -l | { cat; echo "* * * * * /cronjob.sh > /proc/1/fd/1 2>/proc/1/fd/2"; } | crontab -
 
