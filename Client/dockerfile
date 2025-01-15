@@ -31,5 +31,6 @@ RUN touch /var/log/cron.log
 RUN mkdir /data
 RUN touch /data/id
 RUN touch /data/serverPath
+RUN touch /data/lshw
 
 CMD ["./startup.sh"]

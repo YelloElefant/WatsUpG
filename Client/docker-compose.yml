@@ -12,6 +12,8 @@ services:
     volumes:
       - ./clientData:/data
       - /sys:/sys:ro
-      - /proc:/proc:ro
+      - /proc:/proc
       - /dev:/dev:ro
+    security_opt:
+      - apparmor=unconfined
     restart: unless-stopped

@@ -1,30 +1,40 @@
 #!/bin/bash
 
-# List of lshw classes
 classes=(
    "system" "bridge" "memory" "processor" "address"
    "storage" "disk" "tape" "bus" "network"
-   "display" "input" "printer" "multimedia" "communication"
-   "power" "volume" "generic"
+   "display" "input" "multimedia" "communication"
+   "volume" "generic"
 )
 
-# Initialize an empty JSON object
+temp_dir=$(mktemp -d)
 json_output='{'
 
-# Loop through each class and run lshw
 for class in "${classes[@]}"; do
-   # Run lshw for the class and capture the JSON output
-   class_output=$(lshw -c "$class" -json 2>/dev/null)
+   (
+      class_output=$(lshw -c "$class" -json 2>/dev/null)
+      if [[ -n "$class_output" ]]; then
+         echo "\"$class\": $class_output," >"$temp_dir/$class.json"
+      fi
+   ) &
+done
 
-   # If output is not empty, append it to the JSON object
-   if [[ -n "$class_output" ]]; then
-      json_output+="\"$class\": $class_output,"
+wait
+
+for class in "${classes[@]}"; do
+   if [[ -f "$temp_dir/$class.json" ]]; then
+      json_output+=$(cat "$temp_dir/$class.json")
    fi
 done
 
 # Remove the trailing comma and close the JSON object
 json_output=${json_output%,}
-json_output+='} '
+json_output+='}'
+
+>/data/lshw
 
 # Pretty-print the JSON object using jq
-echo "$json_output" | jq . -c
+echo {"\"lshw\"" : "$json_output"} | jq . -c >>/data/lshw
+
+# Clean up temporary files
+rm -r "$temp_dir"
