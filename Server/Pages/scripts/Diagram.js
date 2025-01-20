@@ -19,9 +19,16 @@ getLshw(window.location.search.split("=")[1]).then(data => {
 
    let pluggedInUsb = data.input.filter((child) => child.id.includes("usb"));
    console.log("USB Devices: ", pluggedInUsb);
+   pluggedInUsb.forEach((controller) => {
+      delete controller.id;
+      delete controller.class;
+      delete controller.claimed;
+   });
 
    // Filter USB controllers and hosts
    let usbControllers = data.bus.filter((child) => child.class === "bus" && (child.id.includes("usb") || (child.description && child.description.toLowerCase().includes("usb controller"))));
+   // remove id, class, and claimed from the usb controllers
+
    console.log("USB Controllers and Hosts:", usbControllers);
    // for each usb controller add the devices that are plugged into it
    usbControllers.forEach((controller) => {
