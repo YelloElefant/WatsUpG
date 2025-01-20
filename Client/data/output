@@ -1,4 +1,30 @@
 
-privateIpv6-1: {"family":"inet6","local":"2407:7000:90d8:6f00:c98e:f7f2:b172:b912","prefixlen":128,"scope":"global","dynamic":true,"noprefixroute":true,"valid_life_time":4377,"preferred_life_time":1677}
-privateIpv6-2: {"family":"inet6","local":"2407:7000:90d8:6f00:da50:e6ff:fe04:6f8d","prefixlen":64,"scope":"global","dynamic":true,"mngtmpaddr":true,"noprefixroute":true,"valid_life_time":86211,"preferred_life_time":14211}
-privateIpv6-3: {"family":"inet6","local":"fe80::da50:e6ff:fe04:6f8d","prefixlen":64,"scope":"link","valid_life_time":4294967295,"preferred_life_time":4294967295}
+privateIpv6-1: {
+   "family": "inet6",
+   "local": "2407:7000:90d8:6f00:c98e:f7f2:b172:b912",
+   "prefixlen": 128,
+   "scope": "global",
+   "dynamic": true,
+   "noprefixroute": true,
+   "valid_life_time": 4377,
+   "preferred_life_time": 1677
+}
+privateIpv6-2: {
+   "family": "inet6",
+   "local": "2407:7000:90d8:6f00:da50:e6ff:fe04:6f8d",
+   "prefixlen": 64,
+   "scope": "global",
+   "dynamic": true,
+   "mngtmpaddr": true,
+   "noprefixroute": true,
+   "valid_life_time": 86211,
+   "preferred_life_time": 14211
+}
+privateIpv6-3: {
+   "family": "inet6",
+   "local": "fe80::da50:e6ff:fe04:6f8d",
+   "prefixlen": 64,
+   "scope": "link",
+   "valid_life_time": 4294967295,
+   "preferred_life_time": 4294967295
+}

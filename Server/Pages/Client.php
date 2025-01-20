@@ -157,7 +157,7 @@ function getClientData($key)
                      </div>
                   <?php
                      $ip = getClientData('ip');
-                     $data = JSON_decode($ip, true);
+                     $data = $ip[0]["addr_info"];
                      
                      foreach ($data as $index => $info) {
                         // $info = array_slice($info, 0, count($info) - 1);
@@ -220,14 +220,65 @@ function getClientData($key)
                   
                </div>
             </div>
+            <div class="infoBlock">
+               <h2>Port Diagram</h2>
+               <div id="diagramList" class="attrabutes">
+                  
+            </div>
+            
+
          </div>
 
       </div>
 
 
    </div>
+   <div class="usb" style="display: none;">
+                <svg fill="none" stroke="darkgrey" stroke-width="2" id="usbSvg" style="height: 62px;">
+                     <rect x="1" y="1" width="100" height="60" />
+                     <line x1="1" x2="100" y1="30" y2="30" />
+                     <rect x="11" y="27" width="12" height="6" fill="darkgrey"/>
+                     <rect x="34" y="27" width="12" height="6" fill="darkgrey"/>
+                     <rect x="56" y="27" width="12" height="6" fill="darkgrey"/>
+                     <rect x="78" y="27" width="12" height="6" fill="darkgrey"/>
+                </svg>         
+            </div>
+   <div class="network" style="display: none;">
+                     <svg fill="none" stroke="darkgrey" stroke-width="2" id="networkSvg" style="width: 100px; height: 100px;">
+                        <!-- left stairs -->
+                        <line x1="0" x2="20" y1="25" y2="25"/>
+                        <line x1="20" x2="20" y1="25" y2="12.5"/>
+                        <line x1="20" x2="40" y1="12.5" y2="12.5"/>
+                        <line x1="40" x2="40" y1="12.5" y2="0"/>
+
+                        <!-- top hat -->
+                        <line x1="40" x2="60" y1="1" y2="1"/>
+
+                        <!-- right stairs -->
+                        <line x1="60" x2="60" y1="12.5" y2="0"/>
+                        <line x1="60" x2="80" y1="12.5" y2="12.5"/>
+                        <line x1="80" x2="80" y1="25" y2="12.5"/>
+                        <line x1="80" x2="100" y1="25" y2="25"/>
+
+                        <!-- outline -->
+                        <line x1="0" x2="0" y1="25" y2="100" />
+                        <line x1="100" x2="100" y1="25" y2="100"  />
+                        <line x1="0" x2="100" y1="100" y2="100" />
+
+                        <!-- dashes -->
+                        <line x1="10" x2="10" y1="80" y2="70"/>
+                        <line x1="21.25" x2="21.25" y1="80" y2="70"/>
+                        <line x1="32.5" x2="32.5" y1="80" y2="70"/>
+                        <line x1="43.75" x2="43.75" y1="80" y2="70"/>
+                        <line x1="55" x2="55" y1="80" y2="70"/>
+                        <line x1="66.25" x2="66.25" y1="80" y2="70"/>
+                        <line x1="77.5" x2="77.5" y1="80" y2="70"/>
+                        <line x1="90" x2="90" y1="80" y2="70"/>
+                     </svg>
+                  </div>
    <script src="./scripts/index.js"></script>
    <script src="./scripts/Client.js"></script>
+   <script src="./scripts/Diagram.js"></script>
 </body>
 
 

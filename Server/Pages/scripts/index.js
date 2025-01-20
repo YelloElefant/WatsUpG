@@ -7,6 +7,8 @@ currentPath = currentPath.split("/");
 currentPath = currentPath[currentPath.length - 1];
 if (currentPath == "index.html" || currentPath == "" || currentPath == "index" || currentPath == "/" || currentPath == "index.php") {
    currentPath = "dashboard"
+} else if (currentPath.includes("Client")) {
+   currentPath = "clients";
 } else {
 
    currentPath = currentPath.split(".")[0].toLowerCase();

@@ -1,11 +1,38 @@
 #!/bin/bash
-json=$(cat ../clientData/settings.json)
 
-# path first argument
-path=$(echo $1 | sed 's/\([^.]*\)\./"\1",/g; s/\([^,]*\)$/\1/' | awk '{print "[" $0 "]"}')
-echo path: $path
+classes=(
+   "system" "bridge" "memory" "processor" "address"
+   "storage" "disk" "tape" "bus" "network"
+   "display" "input" "multimedia" "communication"
+   "volume" "generic"
+)
 
-id=$(echo "$json" | jq --arg nest "$path" '. | getpath($nest)')
-echo $id
+temp_dir=$(mktemp -d)
+json_output='{'
 
-#echo "$json" | jq --arg id "$id" '.id = $id' > ../clientData/settings.json
+for class in "${classes[@]}"; do
+   (
+      class_output=$(lshw -c "$class" -json 2>/dev/null)
+      if [[ -n "$class_output" ]]; then
+         echo "\"$class\": $class_output," >"$temp_dir/$class.json"
+      fi
+   ) &
+done
+
+wait
+
+for class in "${classes[@]}"; do
+   if [[ -f "$temp_dir/$class.json" ]]; then
+      json_output+=$(cat "$temp_dir/$class.json")
+   fi
+done
+
+# Remove the trailing comma and close the JSON object
+json_output=${json_output%,}
+json_output+='}'
+
+# Pretty-print the JSON object using jq
+echo {"\"lshw\"" : "$json_output"} | jq . -c
+
+# Clean up temporary files
+rm -r "$temp_dir"

@@ -10,10 +10,13 @@ $redis->connect('redisStack', 6379);
 if (array_key_exists('want', $_GET)) {
    $want = $_GET['want'];
    $data = json_decode($redis->get($id), true);
-   $filteredData = array();
+   // split $want at ,
+   $want = explode(',', $want);
+   $filteredData = [];
    foreach ($want as $key) {
       $filteredData[$key] = $data[$key];
    }
+
    echo json_encode($filteredData);
    return;
 }
