@@ -96,6 +96,9 @@ function makeSvg(listToMake, color, svgToCopy) {
             key = key.charAt(0).toUpperCase() + key.slice(1);
             let p = document.createElement("p");
             if (typeof value === "object" && value !== null) {
+               if (Object.keys(value).length === 0) {
+                  return;
+               }
                p.appendChild(createDetailsElement(key, value));
             } else {
                if (typeof value === "string" && value.includes(":")) {
