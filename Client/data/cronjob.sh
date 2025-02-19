@@ -8,7 +8,7 @@ construct_data() {
   for key in "${!clientData[@]}"; do
     value="${clientData[$key]}"
     # Check if the value is already JSON (avoid double quoting)
-    if [[ "$key" == "ip" || "$key" == "lshw" ]]; then
+    if [[ "$key" == "ip" || "$key" == "lshw" || "$key" == "traffic" ]]; then
       json+="\"$key\": $value,"
     else
       json+="\"$key\": \"$(echo "$value" | sed 's/"/\\"/g')\","
@@ -63,6 +63,7 @@ clientData["os"]=$(cat /etc/os-release | grep 'PRETTY_NAME' | cut -d'=' -f2 | se
 clientData["diskUsage"]=$(df -h | grep '/dev/sda1' | awk '{print $5}')
 clientData["osVersion"]=$(cat /etc/os-release | grep 'PRETTY_NAME' | cut -d'=' -f2 | sed 's/"//g' | cut -d' ' -f2)
 clientData["lshw"]=$(cat /data/lshw)
+clientData["traffic"]=$(cat /data/traffic)
 # clientData["token"]=123456789
 clientData["type"]="client"
 clientData["status"]="up"
