@@ -1,5 +1,8 @@
 FROM ubuntu:latest
 
+ENV TZ=America/New_York
+RUN ln -sf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
 RUN apt-get update
 RUN apt-get install -y cron
 RUN apt-get install -y curl
