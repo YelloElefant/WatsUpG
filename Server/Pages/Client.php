@@ -220,6 +220,13 @@ function getClientData($key)
                   
                </div>
             </div>
+
+            <div class="infoBlock">
+               <h2>Traffic Graph</h2>
+               <div id="trafficGraph">
+                  <canvas id="trafficCanvas" width="600px"></canvas>
+               </div>
+            </div>
             <div class="infoBlock">
                <h2>Port Diagram</h2>
                <div id="diagramList" class="attrabutes">
@@ -279,6 +286,8 @@ function getClientData($key)
    <script src="./scripts/index.js"></script>
    <script src="./scripts/Client.js"></script>
    <script src="./scripts/Diagram.js"></script>
+   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+   <script src="./scripts/Traffic.js"></script>
 </body>
 
 

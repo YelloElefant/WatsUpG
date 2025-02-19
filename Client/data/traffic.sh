@@ -1,7 +1,8 @@
 #!/bin/bash
 while true; do
+   id=$(cat /data/id)
    DURATION=5 # Seconds for vnstat sampling
-   OUTPUT_FILE="/data/traffic"
+   OUTPUT_FILE="/data/traffic2"
 
    temp_dir=$(mktemp -d)
 
@@ -26,9 +27,14 @@ while true; do
       fi
    done
 
-   echo "\"timestamp\": \"$(date +%H:%M)\"" >>$OUTPUT_FILE
+   echo "\"timestamp\": \"$(date +%H:%M:%S)\"" >>$OUTPUT_FILE
    echo "}" >>$OUTPUT_FILE
 
+   # send the data to the server
+
+   data=$(cat $OUTPUT_FILE)
+
+   curl -X POST 192.168.1.29:2525/Api/ClientTraffic.php -d "traffic=$data&id=$id"
    rm -r "$temp_dir"
 
 done

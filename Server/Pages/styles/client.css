@@ -98,3 +98,15 @@ details {
 details *:not(summary) {
    margin-left: 30px;
 }
+
+
+/* traffic graph */
+
+#trafficGraph {
+   border-top: solid thin var(--border-color);
+}
+
+
+#trafficCanvas {
+   border: solid thin var(--border-color);
+}
