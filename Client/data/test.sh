@@ -1,38 +1,18 @@
 #!/bin/bash
+first=$(df -h / | tr -s ' ')
+second=","
+third=${first//" "/$second}
 
-classes=(
-   "system" "bridge" "memory" "processor" "address"
-   "storage" "disk" "tape" "bus" "network"
-   "display" "input" "multimedia" "communication"
-   "volume" "generic"
-)
+headers=$(echo $third | cut -d' ' -f1)
+values=$(echo $third | cut -d' ' -f2)
 
-temp_dir=$(mktemp -d)
-json_output='{'
+# Split headers and values into arrays
+IFS=',' read -r -a header_array <<<"$headers"
+IFS=',' read -r -a value_array <<<"$values"
 
-for class in "${classes[@]}"; do
-   (
-      class_output=$(lshw -c "$class" -json 2>/dev/null)
-      if [[ -n "$class_output" ]]; then
-         echo "\"$class\": $class_output," >"$temp_dir/$class.json"
-      fi
-   ) &
-done
+# Create JSON object using jq
+json=$(jq -n --argjson headers "$(printf '%s\n' "${header_array[@]}" | jq -R . | jq -s .)" \
+   --argjson values "$(printf '%s\n' "${value_array[@]}" | jq -R . | jq -s .)" \
+   '$headers | to_entries | map({key: .value, value: $values[.key]}) | from_entries')
 
-wait
-
-for class in "${classes[@]}"; do
-   if [[ -f "$temp_dir/$class.json" ]]; then
-      json_output+=$(cat "$temp_dir/$class.json")
-   fi
-done
-
-# Remove the trailing comma and close the JSON object
-json_output=${json_output%,}
-json_output+='}'
-
-# Pretty-print the JSON object using jq
-echo {"\"lshw\"" : "$json_output"} | jq . -c
-
-# Clean up temporary files
-rm -r "$temp_dir"
+echo "$json"
