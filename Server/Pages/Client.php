@@ -151,8 +151,11 @@ function getClientData($key)
                   <div class="attrabute">
                      <h3>Current network adapter</h3>
                      <div class="dataContainer">
-                        <p>Name: <?php echo getClientData('adapter'); ?></p>
+                        <p>Name: <?php echo getClientData('adapter'); ?> <script>let currentAdapter = "<?php echo getClientData('adapter'); ?>";</script></p>
                         <p>Protocal: <?php echo getClientData('adapterProtocol'); ?></p>
+                        <script>
+                           window.currentAdapter = "<?php echo getClientData('adapter'); ?>";
+                        </script>
                      </div>
                      </div>
                   <?php
